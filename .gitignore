@@ -2,3 +2,4 @@
 bin/
 obj/
 .py
+[._]*.un~
