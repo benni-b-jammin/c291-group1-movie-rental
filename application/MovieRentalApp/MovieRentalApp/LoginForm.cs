@@ -13,6 +13,8 @@ namespace MovieRentalApp
         {
             InitializeComponent();
 
+            this.AcceptButton = btnLogin;
+
             myConnection = new SqlConnection(
                 "user id=superuser;" +
                 "password=dbaccess;" +
