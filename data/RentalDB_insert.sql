@@ -26,8 +26,8 @@ DELETE Employee;
 -- Round 1 - initial insertion uses the current value attributes from sequences to make insertions into the tables (proof of concept - unsafe)
 -- ============================================================================================================================================
 
-INSERT INTO Employee (EmployeeID, SSN, LastName, FirstName, Address, City, State, ZipCode)
-	VALUES ( NEXT VALUE FOR EmployeeIDSeq, '122333444', 'Doe', 'Jane', '890 College St', 'Ottawa', 'ON', 'L6T5M2');
+INSERT INTO Employee (EmployeeID, SSN, LastName, FirstName, Address, City, State, ZipCode, Username, PasswordHash)
+	VALUES ( NEXT VALUE FOR EmployeeIDSeq, '122333444', 'Doe', 'Jane', '890 College St', 'Ottawa', 'ON', 'L6T5M2', 'janedoe', HASHBYTES('SHA2_256', 'password'));
 
 INSERT INTO EmployeePhone (EmployeeID, PhoneNum, PhoneType)
 	VALUES( 
@@ -81,8 +81,8 @@ INSERT INTO AppearedIn (MovieID, ActorID)
 -- Round 2 - insertions are made using the SELECT procedure as in the provided example insert document - safer solution
 -- ============================================================================================================================================
 -- Employee
-INSERT INTO Employee (EmployeeID, SSN, LastName, FirstName, Address, City, State, ZipCode, StartDate)
-	VALUES (NEXT VALUE FOR EmployeeIDSeq, '789541235', 'Paulson', 'Sam', '10311 106 Avenue', 'Toronto', 'ON', 'M6V9P1', '2026-02-20');
+INSERT INTO Employee (EmployeeID, SSN, LastName, FirstName, Address, City, State, ZipCode, StartDate, Username, PasswordHash)
+	VALUES (NEXT VALUE FOR EmployeeIDSeq, '789541235', 'Paulson', 'Sam', '10311 106 Avenue', 'Toronto', 'ON', 'M6V9P1', '2026-02-20', 'spaul', HASHBYTES('SHA2_256','super'));
 
 INSERT INTO EmployeePhone (EmployeeID, PhoneNum, PhoneType)
 	VALUES(
