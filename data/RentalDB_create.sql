@@ -49,9 +49,12 @@ CREATE TABLE Employee (
     State       NCHAR(2)    NOT NULL,
     ZipCode     NCHAR(6)    NOT NULL,
     StartDate   DATE        NOT NULL DEFAULT(getdate()),
+    Username       VARCHAR(40)    NOT NULL,
+    PasswordHash   VARBINARY(32)  NOT NULL,
 
     PRIMARY KEY (EmployeeID),
-    UNIQUE (SSN, StartDate)
+    UNIQUE (SSN, StartDate),
+    UNIQUE (Username)
 );
 
 /* 
