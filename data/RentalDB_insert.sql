@@ -155,7 +155,7 @@ INSERT INTO CustomerPhone (CustomerID, PhoneNum)
 	);
 
 INSERT INTO Customer (CustomerID, LastName, FirstName, Address, City, State, ZipCode, Email, AccountNum, CardNum)
-	VALUES (NEXT VALUE FOR CustomerIDSeq, 'Herro', 'Willr', '601 Wide Street', 'Winnipeg', 'MB', 'H9L0P0', 'GHerro@gmail.com', 7, '6564717180809000');
+	VALUES (NEXT VALUE FOR CustomerIDSeq, 'Herro', 'Will', '601 Wide Street', 'Winnipeg', 'MB', 'H9L0P0', 'GHerro@gmail.com', 7, '6564717180809000');
 
 INSERT INTO CustomerPhone (CustomerID, PhoneNum)
 	VALUES(
@@ -164,7 +164,7 @@ INSERT INTO CustomerPhone (CustomerID, PhoneNum)
 	);
 
 INSERT INTO Customer (CustomerID, LastName, FirstName, Address, City, State, ZipCode, Email, AccountNum, CardNum)
-	VALUES (NEXT VALUE FOR CustomerIDSeq, 'Hunt', 'Linda', '400 48 Street', 'Ottawa', 'On', 'M7B6G5', 'Lin@gmail.com', 8, '7897891076765090');
+	VALUES (NEXT VALUE FOR CustomerIDSeq, 'Hunt', 'Linda', '400 48 Street', 'Ottawa', 'ON', 'M7B6G5', 'Lin@gmail.com', 8, '7897891076765090');
 
 INSERT INTO CustomerPhone (CustomerID, PhoneNum)
 	VALUES(
@@ -190,9 +190,54 @@ INSERT INTO CustomerPhone (CustomerID, PhoneNum)
 		'8256156545'
 	);
 
--- Movie
+-- Movies
 INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
 	VALUES(NEXT VALUE FOR MovieIDSeq, 'Oldboy', 'Foreign', 2.50, 3, 1);
+
+INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
+	VALUES(NEXT VALUE FOR MovieIDSeq, 'The Shawshank Redemption', 'Drama', 1.50, 4, 2);
+
+INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
+	VALUES(NEXT VALUE FOR MovieIDSeq, 'The Godfather', 'Drama', 2.60, 5,0);
+
+INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
+	VALUES(NEXT VALUE FOR MovieIDSeq, 'The Dark Knight', 'Action', 1.0, 1, 0);
+
+INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
+	VALUES(NEXT VALUE FOR MovieIDSeq, 'Schindlers List', 'Drama', 3.0, 6, 3);
+
+INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
+	VALUES(NEXT VALUE FOR MovieIDSeq, 'Pulp Fiction', 'Comedy', 1.40, 4, 1);
+
+INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
+	VALUES(NEXT VALUE FOR MovieIDSeq, 'Lord of the Rings', 'Action', 4.44, 9, 1);
+
+INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
+	VALUES(NEXT VALUE FOR MovieIDSeq, '12 Angry Men', 'Drama', 1.33, 7, 4);
+
+INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
+	VALUES(NEXT VALUE FOR MovieIDSeq, 'Parasite', 'Foreign', 2.60, 3, 2);
+
+INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
+	VALUES(NEXT VALUE FOR MovieIDSeq,'Spirited Away', 'Foreign', 3.33, 3, 0);
+
+INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
+	VALUES(NEXT VALUE FOR MovieIDSeq,'Inception', 'Drama', 2.78, 8, 2);
+
+INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
+	VALUES(NEXT VALUE FOR MovieIDSeq,'Seven Samurai', 'Foreign', 3.45, 2, 0);
+
+INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
+	VALUES(NEXT VALUE FOR MovieIDSeq,'Casablanca','Drama', 1.09, 10, 1);
+
+INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
+	VALUES(NEXT VALUE FOR MovieIDSeq,'Star Wars','Action',9.99,10,4);
+
+INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
+	VALUES(NEXT VALUE FOR MovieIDSeq,'Scooby Doo', 'Comedy', 5.30, 5, 3);
+
+INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
+	VALUES(NEXT VALUE FOR MovieIDSeq,'Zootopia', 'Comedy', 8.3, 2, 0);
 
 -- Rental (does not include CheckoutDate or ReturnDate for default checking)
 INSERT INTO Rental (RentalID, EmployeeID, CustomerID, MovieID)
@@ -237,6 +282,350 @@ INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
 		(SELECT MovieID FROM Movie WHERE MovieName = 'Oldboy'),
 		1
 	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'mcarthurl@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Inception'),
+		2
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'mcarthurl@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Zootopia'),
+		3
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'mcarthurl@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Parasite'),
+		4
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'RJorges@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Inception'),
+		1
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'RJorges@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'The Dark Knight'),
+		2
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'RJorges@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'The Godfather'),
+		3
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'RJorges@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Oldboy'),
+		4
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'RJorges@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Casablanca'),
+		5
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'JohnSmith@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = '12 Angry Men'),
+		1
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'JohnSmith@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Lord of the Rings'),
+		2
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'JohnSmith@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Spirited Away'),
+		3
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'JohnSmith@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Schindlers List'),
+		4
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'JohnSmith@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Star Wars'),
+		5
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'JohnSmith@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Parasite'),
+		6
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'TinaT@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Pulp Fiction'),
+		1
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'TinaT@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'The Shawshank Redemption'),
+		2
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'TinaT@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Scooby Doo'),
+		3
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'TinaT@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Seven Samurai'),
+		4
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'WiBowling@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Seven Samurai'),
+		1
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'WiBowling@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Pulp Fiction'),
+		2
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'WiBowling@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Star Wars'),
+		3
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'WiBowling@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Lord of the Rings'),
+		4
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'WiBowling@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Oldboy'),
+		5
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'Jacques@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Schindlers List'),
+		1
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'Jacques@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'The Godfather'),
+		2
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'Jacques@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = '12 Angry Men'),
+		3
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'Jacques@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'The Dark Knight'),
+		4
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'Jacques@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'The Shawshank Redemption'),
+		5
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'Jacques@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Spirited Away'),
+		6
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'GHerro@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Zootopia'),
+		1
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'GHerro@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Spirited Away'),
+		2
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'GHerro@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Casablanca'),
+		3
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'GHerro@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = '12 Angry Men'),
+		4
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'GHerro@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Star Wars'),
+		5
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'Lin@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Pulp Fiction'),
+		1
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'Lin@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Star Wars'),
+		2
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'Lin@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'The Dark Knight'),
+		3
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'Lin@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Parasite'),
+		4
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'Lin@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Seven Samurai'),
+		5
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'BonBon@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Scooby Doo'),
+		1
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'BonBon@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Inception'),
+		2
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'BonBon@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'The Shawshank Redemption'),
+		3
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'BonBon@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = '12 Angry Men'),
+		4
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'BonBon@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Star Wars'),
+		5
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'GLewis@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'The Dark Knight'),
+		1
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'GLewis@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Seven Samurai'),
+		2
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'GLewis@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Lord of the Rings'),
+		3
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'GLewis@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Star Wars'),
+		4
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'GLewis@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Oldboy'),
+		5
+	);
+
 
 -- AppearedIn
 INSERT INTO AppearedIn (MovieID, ActorID)
