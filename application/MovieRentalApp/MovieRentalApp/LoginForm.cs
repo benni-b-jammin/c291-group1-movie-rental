@@ -62,9 +62,11 @@ namespace MovieRentalApp
 
                     if (count > 0)
                     {
-                        DashboardForm dashboard = new DashboardForm(myConnection, username);
-                        dashboard.FormClosed += Dashboard_FormClosed;
+                        DashboardForm dashboard = new DashboardForm(myConnection, username, this);
                         dashboard.Show();
+
+                        //CustomerForm customerForm = new CustomerForm(myConnection);
+                        //customerForm.Show();
 
                         this.Hide();
                     }
@@ -80,15 +82,6 @@ namespace MovieRentalApp
             }
         }
 
-        private void Dashboard_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (myConnection != null && myConnection.State == ConnectionState.Open)
-            {
-                myConnection.Close();
-            }
-
-            this.Close();
-        }
 
         private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
         {

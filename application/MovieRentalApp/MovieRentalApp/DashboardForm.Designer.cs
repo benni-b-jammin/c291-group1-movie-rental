@@ -36,7 +36,7 @@
             // 
             lblPlaceholder.AutoSize = true;
             lblPlaceholder.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            lblPlaceholder.Location = new Point(249, 56);
+            lblPlaceholder.Location = new Point(220, 57);
             lblPlaceholder.Name = "lblPlaceholder";
             lblPlaceholder.Size = new Size(162, 30);
             lblPlaceholder.TabIndex = 0;
@@ -52,6 +52,7 @@
             btnCustomerScreen.TabIndex = 1;
             btnCustomerScreen.Text = "Customer Manager";
             btnCustomerScreen.UseVisualStyleBackColor = true;
+            btnCustomerScreen.Click += btnCustomerScreen_Click;
             // 
             // btnMovieScreen
             // 
@@ -91,6 +92,7 @@
             btnLogout.TabIndex = 5;
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = true;
+            btnLogout.Click += btnLogout_Click;
             // 
             // DashboardForm
             // 
@@ -106,6 +108,7 @@
             Margin = new Padding(3, 2, 3, 2);
             Name = "DashboardForm";
             Text = "Dashboard";
+            FormClosed += DashboardForm_FormClosed;
             ResumeLayout(false);
             PerformLayout();
         }
