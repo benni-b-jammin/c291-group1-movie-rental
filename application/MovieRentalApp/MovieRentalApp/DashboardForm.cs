@@ -50,14 +50,12 @@ namespace MovieRentalApp
 
         private void btnCustomerScreen_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Dispense clicked!");
             CustomerForm customerForm = new CustomerForm(myConnection);
             customerForm.Show();
         }
 
         private void btnRentalScreen_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Dispense clicked!");
             RentalForm rentalForm = new RentalForm(myConnection);
             rentalForm.Show();
 
