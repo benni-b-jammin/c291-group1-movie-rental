@@ -239,14 +239,153 @@ INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRe
 INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
 	VALUES(NEXT VALUE FOR MovieIDSeq,'Zootopia', 'Comedy', 8.3, 2, 0);
 
--- Rental (does not include CheckoutDate or ReturnDate for default checking)
+-- Rental (does not include CheckoutDate or ReturnDate for default checking) 122333444, 789541235, 787858018, 135798642
 INSERT INTO Rental (RentalID, EmployeeID, CustomerID, MovieID)
 	VALUES(
 		NEXT VALUE FOR RentalIDSeq,
 		(SELECT EmployeeID FROM Employee WHERE SSN = '789541235'),
 		(SELECT CustomerID FROM Customer WHERE Email = 'mcarthurl@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Spirited Away')
+	);
+INSERT INTO Rental (RentalID, EmployeeID, CustomerID, MovieID)
+	VALUES(
+		NEXT VALUE FOR RentalIDSeq,
+		(SELECT EmployeeID FROM Employee WHERE SSN = '135798642'),
+		(SELECT CustomerID FROM Customer WHERE Email = 'mcarthurl@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Scooby Doo')
+	);
+
+INSERT INTO Rental (RentalID, EmployeeID, CustomerID, MovieID)
+	VALUES(
+		NEXT VALUE FOR RentalIDSeq,
+		(SELECT EmployeeID FROM Employee WHERE SSN = '135798642'),
+		(SELECT CustomerID FROM Customer WHERE Email = 'RJorges@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Seven Samurai')
+	);
+INSERT INTO Rental (RentalID, EmployeeID, CustomerID, MovieID)
+	VALUES(
+		NEXT VALUE FOR RentalIDSeq,
+		(SELECT EmployeeID FROM Employee WHERE SSN = '122333444'),
+		(SELECT CustomerID FROM Customer WHERE Email = 'RJorges@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Spirited Away')
+	);
+
+INSERT INTO Rental (RentalID, EmployeeID, CustomerID, MovieID)
+	VALUES(
+		NEXT VALUE FOR RentalIDSeq,
+		(SELECT EmployeeID FROM Employee WHERE SSN = '787858018'),
+		(SELECT CustomerID FROM Customer WHERE Email = 'JohnSmith@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Zootopia')
+	);
+INSERT INTO Rental (RentalID, EmployeeID, CustomerID, MovieID)
+	VALUES(
+		NEXT VALUE FOR RentalIDSeq,
+		(SELECT EmployeeID FROM Employee WHERE SSN = '7878580184'),
+		(SELECT CustomerID FROM Customer WHERE Email = 'JohnSmith@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Pulp Fiction')
+	);
+
+INSERT INTO Rental (RentalID, EmployeeID, CustomerID, MovieID)
+	VALUES(
+		NEXT VALUE FOR RentalIDSeq,
+		(SELECT EmployeeID FROM Employee WHERE SSN = '135798642'),
+		(SELECT CustomerID FROM Customer WHERE Email = 'TinaT@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Star Wars')
+	);
+
+INSERT INTO Rental (RentalID, EmployeeID, CustomerID, MovieID)
+	VALUES(
+		NEXT VALUE FOR RentalIDSeq,
+		(SELECT EmployeeID FROM Employee WHERE SSN = '135798642'),
+		(SELECT CustomerID FROM Customer WHERE Email = 'WiBowling@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'The Dark Knight')
+	);
+INSERT INTO Rental (RentalID, EmployeeID, CustomerID, MovieID)
+	VALUES(
+		NEXT VALUE FOR RentalIDSeq,
+		(SELECT EmployeeID FROM Employee WHERE SSN = '135798642'),
+		(SELECT CustomerID FROM Customer WHERE Email = 'WiBowling@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Parasite')
+	);
+
+INSERT INTO Rental (RentalID, EmployeeID, CustomerID, MovieID)
+	VALUES(
+		NEXT VALUE FOR RentalIDSeq,
+		(SELECT EmployeeID FROM Employee WHERE SSN = '787858018'),
+		(SELECT CustomerID FROM Customer WHERE Email = 'Jacques@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Lord of the Rings')
+	);
+INSERT INTO Rental (RentalID, EmployeeID, CustomerID, MovieID)
+	VALUES(
+		NEXT VALUE FOR RentalIDSeq,
+		(SELECT EmployeeID FROM Employee WHERE SSN = '122333444'),
+		(SELECT CustomerID FROM Customer WHERE Email = 'Jacques@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Inception')
+	);
+
+INSERT INTO Rental (RentalID, EmployeeID, CustomerID, MovieID)
+	VALUES(
+		NEXT VALUE FOR RentalIDSeq,
+		(SELECT EmployeeID FROM Employee WHERE SSN = '789541235'),
+		(SELECT CustomerID FROM Customer WHERE Email = 'GHerro@gmail.com'),
 		(SELECT MovieID FROM Movie WHERE MovieName = 'Oldboy')
 	);
+INSERT INTO Rental (RentalID, EmployeeID, CustomerID, MovieID)
+	VALUES(
+		NEXT VALUE FOR RentalIDSeq,
+		(SELECT EmployeeID FROM Employee WHERE SSN = '789541235'),
+		(SELECT CustomerID FROM Customer WHERE Email = 'GHerro@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Parasite')
+	);
+
+INSERT INTO Rental (RentalID, EmployeeID, CustomerID, MovieID)
+	VALUES(
+		NEXT VALUE FOR RentalIDSeq,
+		(SELECT EmployeeID FROM Employee WHERE SSN = '787858018'),
+		(SELECT CustomerID FROM Customer WHERE Email = 'Lin@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Lord of the Rings')
+	);
+INSERT INTO Rental (RentalID, EmployeeID, CustomerID, MovieID)
+	VALUES(
+		NEXT VALUE FOR RentalIDSeq,
+		(SELECT EmployeeID FROM Employee WHERE SSN = '789541235'),
+		(SELECT CustomerID FROM Customer WHERE Email = 'Lin@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Zootopia')
+	);
+
+INSERT INTO Rental (RentalID, EmployeeID, CustomerID, MovieID)
+	VALUES(
+		NEXT VALUE FOR RentalIDSeq,
+		(SELECT EmployeeID FROM Employee WHERE SSN = '789541235'),
+		(SELECT CustomerID FROM Customer WHERE Email = 'BonBon@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Spirited Away')
+	);
+INSERT INTO Rental (RentalID, EmployeeID, CustomerID, MovieID)
+	VALUES(
+		NEXT VALUE FOR RentalIDSeq,
+		(SELECT EmployeeID FROM Employee WHERE SSN = '122333444'),
+		(SELECT CustomerID FROM Customer WHERE Email = 'BonBon@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Pulp Fiction')
+	);
+
+INSERT INTO Rental (RentalID, EmployeeID, CustomerID, MovieID)
+	VALUES(
+		NEXT VALUE FOR RentalIDSeq,
+		(SELECT EmployeeID FROM Employee WHERE SSN = '789541235'),
+		(SELECT CustomerID FROM Customer WHERE Email = 'GLewis@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Parasite')
+	);
+INSERT INTO Rental (RentalID, EmployeeID, CustomerID, MovieID)
+	VALUES(
+		NEXT VALUE FOR RentalIDSeq,
+		(SELECT EmployeeID FROM Employee WHERE SSN = '135798642'),
+		(SELECT CustomerID FROM Customer WHERE Email = 'GLewis@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Zootopia')
+	);
+
+
+
+
 
 -- Movie Rating
 INSERT INTO MovieRating (RentalID, MRate)
@@ -279,7 +418,7 @@ INSERT INTO ActorRating (ActorID, RentalID, ARate)
 INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
 	VALUES(
 		(SELECT CustomerID FROM Customer WHERE Email = 'mcarthurl@gmail.com'),
-		(SELECT MovieID FROM Movie WHERE MovieName = 'Oldboy'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'The Godfather'),
 		1
 	);
 
