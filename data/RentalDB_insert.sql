@@ -239,6 +239,9 @@ INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRe
 INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
 	VALUES(NEXT VALUE FOR MovieIDSeq,'Zootopia', 'Comedy', 8.3, 2, 3);
 
+INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
+	VALUES (NEXT VALUE FOR MovieIDSeq, 'Batman Begins', 'Action', 2.25, 4, 0);	
+
 -- Rental (does not include CheckoutDate or ReturnDate for default checking) 122333444, 789541235, 787858018, 135798642
 INSERT INTO Rental (RentalID, EmployeeID, CustomerID, MovieID)
 	VALUES(
@@ -398,9 +401,106 @@ INSERT INTO MovieRating (RentalID, MRate)
 		5
 	);
 
--- Actor
+-- Actors
 INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
-	VALUES(NEXT VALUE FOR ActorIDSeq, 'Choi Min-sik', 1, '1962-05-30');
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Donald Glover', 1, '1983-09-25');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Yoo Ji-tae', 1, '1976-04-13');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Choi Min-sik', 1, '1962-05-30');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Tim Robbins', 1, '1958-10-16');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Morgan Freeman', 1, '1937-06-01');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Marlon Brando', 1, '1924-04-03');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Al Pacino', 1, '1940-04-25');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Christian Bale', 1, '1974-01-30');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Heath Ledger', 1, '1979-04-04');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Liam Neeson', 1, '1952-06-07');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Ben Kingsley', 1, '1943-12-31');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'John Travolta', 1, '1954-02-18');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Samuel L. Jackson', 1, '1948-12-21');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Elijah Wood', 1, '1981-01-28');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Ian McKellen', 1, '1939-05-25');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Henry Fonda', 1, '1905-05-16');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Lee J. Cobb', 1, '1911-12-08');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Song Kang-ho', 1, '1967-01-17');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Lee Sun-kyun', 1, '1975-03-02');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Daveigh Chase', 0, '1990-07-24');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Suzanne Pleshette', 0, '1937-01-31');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Leonardo DiCaprio', 1, '1974-11-11');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Joseph Gordon-Levitt', 1, '1981-02-17');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Toshiro Mifune', 1, '1920-04-01');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Takashi Shimura', 1, '1905-03-12');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Humphrey Bogart', 1, '1899-12-25');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Ingrid Bergman', 0, '1915-08-29');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Mark Hamill', 1, '1951-09-25');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Harrison Ford', 1, '1942-07-13');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Freddie Prinze Jr.', 1, '1976-03-08');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Sarah Michelle Gellar', 0, '1977-04-14');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Ginnifer Goodwin', 0, '1978-05-22');
+
+INSERT INTO Actor (ActorID, ActorName, Gender, DoB)
+    VALUES (NEXT VALUE FOR ActorIDSeq, 'Jason Bateman', 1, '1969-01-14');
+
 
 -- Actor Rating
 INSERT INTO ActorRating (ActorID, RentalID, ARate)
@@ -767,22 +867,251 @@ INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
 
 
 -- AppearedIn
+
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'The Lion King (2019)'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Donald Glover')
+	);
+
+-- Oldboy
 INSERT INTO AppearedIn (MovieID, ActorID)
 	VALUES(
 		(SELECT MovieID FROM Movie WHERE MovieName = 'Oldboy'),
 		(SELECT ActorID FROM Actor WHERE ActorName = 'Choi Min-sik')
 	);
 
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Oldboy'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Yoo Ji-tae')
+	);
+
+-- The Shawshank Redemption
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'The Shawshank Redemption'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Tim Robbins')
+	);
+
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'The Shawshank Redemption'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Morgan Freeman')
+	);
+
+-- The Godfather
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'The Godfather'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Marlon Brando')
+	);
+
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'The Godfather'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Al Pacino')
+	);
+
+-- The Dark Knight
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'The Dark Knight'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Christian Bale')
+	);
+
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'The Dark Knight'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Heath Ledger')
+	);
+
+-- Schindlers List
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Schindlers List'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Liam Neeson')
+	);
+
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Schindlers List'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Ben Kingsley')
+	);
+
+-- Pulp Fiction
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Pulp Fiction'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'John Travolta')
+	);
+
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Pulp Fiction'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Samuel L. Jackson')
+	);
+
+-- Lord of the Rings
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Lord of the Rings'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Elijah Wood')
+	);
+
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Lord of the Rings'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Ian McKellen')
+	);
+
+-- 12 Angry Men
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = '12 Angry Men'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Henry Fonda')
+	);
+
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = '12 Angry Men'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Lee J. Cobb')
+	);
+
+-- Parasite
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Parasite'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Song Kang-ho')
+	);
+
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Parasite'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Lee Sun-kyun')
+	);
+
+-- Spirited Away
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Spirited Away'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Daveigh Chase')
+	);
+
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Spirited Away'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Suzanne Pleshette')
+	);
+
+-- Inception
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Inception'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Leonardo DiCaprio')
+	);
+
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Inception'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Joseph Gordon-Levitt')
+	);
+
+-- Seven Samurai
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Seven Samurai'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Toshiro Mifune')
+	);
+
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Seven Samurai'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Takashi Shimura')
+	);
+
+-- Casablanca
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Casablanca'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Humphrey Bogart')
+	);
+
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Casablanca'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Ingrid Bergman')
+	);
+
+-- Star Wars
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Star Wars'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Mark Hamill')
+	);
+
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Star Wars'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Harrison Ford')
+	);
+
+-- Scooby Doo
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Scooby Doo'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Freddie Prinze Jr.')
+	);
+
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Scooby Doo'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Sarah Michelle Gellar')
+	);
+
+-- Zootopia
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Zootopia'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Ginnifer Goodwin')
+	);
+
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Zootopia'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Jason Bateman')
+	);
+
+-- Batman Begins
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Batman Begins'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Christian Bale')
+	);
+
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Batman Begins'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Liam Neeson')
+	);
+
+INSERT INTO AppearedIn (MovieID, ActorID)
+	VALUES(
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Batman Begins'),
+		(SELECT ActorID FROM Actor WHERE ActorName = 'Morgan Freeman')
+	);
+
+
 -- Tests
 
-SELECT * FROM Employee;
-SELECT * FROM EmployeePhone;
-SELECT * FROM Customer;
-SELECT * FROM CustomerPhone;
+--SELECT * FROM Employee;
+--SELECT * FROM EmployeePhone;
+--SELECT * FROM Customer;
+--SELECT * FROM CustomerPhone;
 SELECT * FROM Movie;
-SELECT * FROM Rental;
+--SELECT * FROM Rental;
 SELECT * FROM Actor;
-SELECT * FROM MovieRating;
-SELECT * FROM ActorRating;
-SELECT * FROM QueueUp;
+--SELECT * FROM MovieRating;
+--SELECT * FROM ActorRating;
+--SELECT * FROM QueueUp;
 SELECT * FROM AppearedIn;
