@@ -2,15 +2,11 @@
 {
     partial class DashboardForm
     {
-        /// <summary>
         /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
         private Label lblPlaceholder;
 
-        /// <summary>
         /// Clean up any resources being used.
-        /// </summary>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -63,6 +59,7 @@
             btnMovieScreen.TabIndex = 2;
             btnMovieScreen.Text = "Movie Manager";
             btnMovieScreen.UseVisualStyleBackColor = true;
+            btnMovieScreen.Click += btnMovieScreen_Click;
             // 
             // btnRentalScreen
             // 
@@ -110,6 +107,7 @@
             Name = "DashboardForm";
             Text = "Dashboard";
             FormClosed += DashboardForm_FormClosed;
+            Load += DashboardForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -121,5 +119,6 @@
         private Button btnRentalScreen;
         private Button btnReportScreen;
         private Button btnLogout;
+
     }
 }
