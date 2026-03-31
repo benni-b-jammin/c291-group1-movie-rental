@@ -54,6 +54,12 @@ namespace MovieRentalApp
             customerForm.Show();
         }
 
+        private void btnMovieScreen_Click(object sender, EventArgs e)
+        {
+            MovieForm movieForm = new MovieForm(myConnection);
+            movieForm.Show();
+        }
+
         private void lblPlaceholder_Click(object sender, EventArgs e)
         {
         }

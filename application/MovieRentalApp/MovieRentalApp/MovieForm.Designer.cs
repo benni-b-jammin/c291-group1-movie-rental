@@ -30,6 +30,15 @@
         {
             Movie = new TabControl();
             CreateMovie = new TabPage();
+            btnAddActor = new Button();
+            lblCreateFeaturedActors = new Label();
+            txtCreateActorLN = new TextBox();
+            txtCreateActorFN = new TextBox();
+            lstCreateActors = new ListBox();
+            lblCreateActorLN = new Label();
+            lblCreateActorFN = new Label();
+            lblSelectActors = new Label();
+            dgvCreateActors = new DataGridView();
             lblCreateMovie = new Label();
             txtCreateNumCopies = new TextBox();
             lblCreateNumCopies = new Label();
@@ -40,26 +49,19 @@
             lblCreateMovieName = new Label();
             txtCreateMovieName = new TextBox();
             SearchMovies = new TabPage();
-            dgvSearchMovie = new DataGridView();
-            lblSearchMovieName = new Label();
-            textBox1 = new TextBox();
-            btnSearchMovie = new Button();
-            btnOpenMovieDetails = new Button();
-            dataGridView1 = new DataGridView();
-            lblSelectActors = new Label();
             lblSearchMovies = new Label();
-            lblCreateActorFN = new Label();
-            lblCreateActorLN = new Label();
-            lstCreateActors = new ListBox();
-            txtCreateActorFN = new TextBox();
-            txtCreateActorLN = new TextBox();
-            lblCreateFeaturedActors = new Label();
-            btnCreateAddActor = new Button();
+            btnOpenMovieDetails = new Button();
+            btnSearchMovie = new Button();
+            textBox1 = new TextBox();
+            lblSearchMovieName = new Label();
+            dgvSearchMovie = new DataGridView();
+            btnCreateMovie = new Button();
+            btnRemoveActor = new Button();
             Movie.SuspendLayout();
             CreateMovie.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCreateActors).BeginInit();
             SearchMovies.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvSearchMovie).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // Movie
@@ -75,7 +77,9 @@
             // 
             // CreateMovie
             // 
-            CreateMovie.Controls.Add(btnCreateAddActor);
+            CreateMovie.Controls.Add(btnRemoveActor);
+            CreateMovie.Controls.Add(btnCreateMovie);
+            CreateMovie.Controls.Add(btnAddActor);
             CreateMovie.Controls.Add(lblCreateFeaturedActors);
             CreateMovie.Controls.Add(txtCreateActorLN);
             CreateMovie.Controls.Add(txtCreateActorFN);
@@ -83,7 +87,7 @@
             CreateMovie.Controls.Add(lblCreateActorLN);
             CreateMovie.Controls.Add(lblCreateActorFN);
             CreateMovie.Controls.Add(lblSelectActors);
-            CreateMovie.Controls.Add(dataGridView1);
+            CreateMovie.Controls.Add(dgvCreateActors);
             CreateMovie.Controls.Add(lblCreateMovie);
             CreateMovie.Controls.Add(txtCreateNumCopies);
             CreateMovie.Controls.Add(lblCreateNumCopies);
@@ -101,6 +105,85 @@
             CreateMovie.Text = "Create Movie";
             CreateMovie.UseVisualStyleBackColor = true;
             CreateMovie.Click += CreateMovie_Click;
+            // 
+            // btnAddActor
+            // 
+            btnAddActor.Location = new Point(648, 334);
+            btnAddActor.Name = "btnAddActor";
+            btnAddActor.Size = new Size(96, 23);
+            btnAddActor.TabIndex = 19;
+            btnAddActor.Text = "Add Actor";
+            btnAddActor.UseVisualStyleBackColor = true;
+            // 
+            // lblCreateFeaturedActors
+            // 
+            lblCreateFeaturedActors.AutoSize = true;
+            lblCreateFeaturedActors.Location = new Point(23, 268);
+            lblCreateFeaturedActors.Name = "lblCreateFeaturedActors";
+            lblCreateFeaturedActors.Size = new Size(98, 15);
+            lblCreateFeaturedActors.TabIndex = 18;
+            lblCreateFeaturedActors.Text = "Featured Actor(s)";
+            // 
+            // txtCreateActorLN
+            // 
+            txtCreateActorLN.Location = new Point(498, 103);
+            txtCreateActorLN.Name = "txtCreateActorLN";
+            txtCreateActorLN.Size = new Size(167, 23);
+            txtCreateActorLN.TabIndex = 17;
+            // 
+            // txtCreateActorFN
+            // 
+            txtCreateActorFN.Location = new Point(498, 63);
+            txtCreateActorFN.Name = "txtCreateActorFN";
+            txtCreateActorFN.Size = new Size(167, 23);
+            txtCreateActorFN.TabIndex = 16;
+            // 
+            // lstCreateActors
+            // 
+            lstCreateActors.FormattingEnabled = true;
+            lstCreateActors.Location = new Point(143, 263);
+            lstCreateActors.Name = "lstCreateActors";
+            lstCreateActors.Size = new Size(120, 94);
+            lstCreateActors.TabIndex = 15;
+            lstCreateActors.SelectedIndexChanged += listBox1_SelectedIndexChanged;
+            // 
+            // lblCreateActorLN
+            // 
+            lblCreateActorLN.AutoSize = true;
+            lblCreateActorLN.Location = new Point(418, 103);
+            lblCreateActorLN.Name = "lblCreateActorLN";
+            lblCreateActorLN.Size = new Size(63, 15);
+            lblCreateActorLN.TabIndex = 14;
+            lblCreateActorLN.Text = "Last Name";
+            // 
+            // lblCreateActorFN
+            // 
+            lblCreateActorFN.AutoSize = true;
+            lblCreateActorFN.Location = new Point(418, 66);
+            lblCreateActorFN.Name = "lblCreateActorFN";
+            lblCreateActorFN.Size = new Size(64, 15);
+            lblCreateActorFN.TabIndex = 13;
+            lblCreateActorFN.Text = "First Name";
+            lblCreateActorFN.Click += label1_Click_1;
+            // 
+            // lblSelectActors
+            // 
+            lblSelectActors.AutoSize = true;
+            lblSelectActors.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblSelectActors.Location = new Point(418, 21);
+            lblSelectActors.Name = "lblSelectActors";
+            lblSelectActors.Size = new Size(224, 25);
+            lblSelectActors.TabIndex = 12;
+            lblSelectActors.Text = "Select Featured Actor(s)";
+            lblSelectActors.Click += lblCreateSFeaturedActors_Click;
+            // 
+            // dgvCreateActors
+            // 
+            dgvCreateActors.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCreateActors.Location = new Point(418, 146);
+            dgvCreateActors.Name = "dgvCreateActors";
+            dgvCreateActors.Size = new Size(326, 167);
+            dgvCreateActors.TabIndex = 11;
             // 
             // lblCreateMovie
             // 
@@ -196,69 +279,6 @@
             SearchMovies.Text = "Search Movies";
             SearchMovies.UseVisualStyleBackColor = true;
             // 
-            // dgvSearchMovie
-            // 
-            dgvSearchMovie.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvSearchMovie.Location = new Point(20, 95);
-            dgvSearchMovie.Name = "dgvSearchMovie";
-            dgvSearchMovie.Size = new Size(733, 263);
-            dgvSearchMovie.TabIndex = 0;
-            dgvSearchMovie.CellContentClick += dataGridView1_CellContentClick;
-            // 
-            // lblSearchMovieName
-            // 
-            lblSearchMovieName.AutoSize = true;
-            lblSearchMovieName.Location = new Point(20, 64);
-            lblSearchMovieName.Name = "lblSearchMovieName";
-            lblSearchMovieName.Size = new Size(75, 15);
-            lblSearchMovieName.TabIndex = 1;
-            lblSearchMovieName.Text = "Movie Name";
-            lblSearchMovieName.Click += lblSearchMovieName_Click;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(114, 59);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(229, 23);
-            textBox1.TabIndex = 2;
-            // 
-            // btnSearchMovie
-            // 
-            btnSearchMovie.Location = new Point(448, 60);
-            btnSearchMovie.Name = "btnSearchMovie";
-            btnSearchMovie.Size = new Size(105, 23);
-            btnSearchMovie.TabIndex = 3;
-            btnSearchMovie.Text = "Search";
-            btnSearchMovie.UseVisualStyleBackColor = true;
-            // 
-            // btnOpenMovieDetails
-            // 
-            btnOpenMovieDetails.Location = new Point(589, 60);
-            btnOpenMovieDetails.Name = "btnOpenMovieDetails";
-            btnOpenMovieDetails.Size = new Size(115, 23);
-            btnOpenMovieDetails.TabIndex = 4;
-            btnOpenMovieDetails.Text = "Open Details";
-            btnOpenMovieDetails.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(418, 146);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(326, 167);
-            dataGridView1.TabIndex = 11;
-            // 
-            // lblSelectActors
-            // 
-            lblSelectActors.AutoSize = true;
-            lblSelectActors.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblSelectActors.Location = new Point(418, 21);
-            lblSelectActors.Name = "lblSelectActors";
-            lblSelectActors.Size = new Size(224, 25);
-            lblSelectActors.TabIndex = 12;
-            lblSelectActors.Text = "Select Featured Actor(s)";
-            lblSelectActors.Click += lblCreateSFeaturedActors_Click;
-            // 
             // lblSearchMovies
             // 
             lblSearchMovies.AutoSize = true;
@@ -270,65 +290,67 @@
             lblSearchMovies.TabIndex = 5;
             lblSearchMovies.Text = "Search Movies";
             // 
-            // lblCreateActorFN
+            // btnOpenMovieDetails
             // 
-            lblCreateActorFN.AutoSize = true;
-            lblCreateActorFN.Location = new Point(418, 66);
-            lblCreateActorFN.Name = "lblCreateActorFN";
-            lblCreateActorFN.Size = new Size(64, 15);
-            lblCreateActorFN.TabIndex = 13;
-            lblCreateActorFN.Text = "First Name";
-            lblCreateActorFN.Click += label1_Click_1;
+            btnOpenMovieDetails.Location = new Point(589, 60);
+            btnOpenMovieDetails.Name = "btnOpenMovieDetails";
+            btnOpenMovieDetails.Size = new Size(115, 23);
+            btnOpenMovieDetails.TabIndex = 4;
+            btnOpenMovieDetails.Text = "Open Details";
+            btnOpenMovieDetails.UseVisualStyleBackColor = true;
             // 
-            // lblCreateActorLN
+            // btnSearchMovie
             // 
-            lblCreateActorLN.AutoSize = true;
-            lblCreateActorLN.Location = new Point(418, 103);
-            lblCreateActorLN.Name = "lblCreateActorLN";
-            lblCreateActorLN.Size = new Size(63, 15);
-            lblCreateActorLN.TabIndex = 14;
-            lblCreateActorLN.Text = "Last Name";
+            btnSearchMovie.Location = new Point(448, 60);
+            btnSearchMovie.Name = "btnSearchMovie";
+            btnSearchMovie.Size = new Size(105, 23);
+            btnSearchMovie.TabIndex = 3;
+            btnSearchMovie.Text = "Search";
+            btnSearchMovie.UseVisualStyleBackColor = true;
             // 
-            // lstCreateActors
+            // textBox1
             // 
-            lstCreateActors.FormattingEnabled = true;
-            lstCreateActors.Location = new Point(143, 263);
-            lstCreateActors.Name = "lstCreateActors";
-            lstCreateActors.Size = new Size(120, 94);
-            lstCreateActors.TabIndex = 15;
-            lstCreateActors.SelectedIndexChanged += listBox1_SelectedIndexChanged;
+            textBox1.Location = new Point(114, 59);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(229, 23);
+            textBox1.TabIndex = 2;
             // 
-            // txtCreateActorFN
+            // lblSearchMovieName
             // 
-            txtCreateActorFN.Location = new Point(498, 63);
-            txtCreateActorFN.Name = "txtCreateActorFN";
-            txtCreateActorFN.Size = new Size(167, 23);
-            txtCreateActorFN.TabIndex = 16;
+            lblSearchMovieName.AutoSize = true;
+            lblSearchMovieName.Location = new Point(20, 64);
+            lblSearchMovieName.Name = "lblSearchMovieName";
+            lblSearchMovieName.Size = new Size(75, 15);
+            lblSearchMovieName.TabIndex = 1;
+            lblSearchMovieName.Text = "Movie Name";
+            lblSearchMovieName.Click += lblSearchMovieName_Click;
             // 
-            // txtCreateActorLN
+            // dgvSearchMovie
             // 
-            txtCreateActorLN.Location = new Point(498, 103);
-            txtCreateActorLN.Name = "txtCreateActorLN";
-            txtCreateActorLN.Size = new Size(167, 23);
-            txtCreateActorLN.TabIndex = 17;
+            dgvSearchMovie.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvSearchMovie.Location = new Point(20, 95);
+            dgvSearchMovie.Name = "dgvSearchMovie";
+            dgvSearchMovie.Size = new Size(733, 263);
+            dgvSearchMovie.TabIndex = 0;
+            dgvSearchMovie.CellContentClick += dataGridView1_CellContentClick;
             // 
-            // lblCreateFeaturedActors
+            // btnCreateMovie
             // 
-            lblCreateFeaturedActors.AutoSize = true;
-            lblCreateFeaturedActors.Location = new Point(23, 268);
-            lblCreateFeaturedActors.Name = "lblCreateFeaturedActors";
-            lblCreateFeaturedActors.Size = new Size(98, 15);
-            lblCreateFeaturedActors.TabIndex = 18;
-            lblCreateFeaturedActors.Text = "Featured Actor(s)";
+            btnCreateMovie.Location = new Point(23, 334);
+            btnCreateMovie.Name = "btnCreateMovie";
+            btnCreateMovie.Size = new Size(96, 23);
+            btnCreateMovie.TabIndex = 20;
+            btnCreateMovie.Text = "Create Movie";
+            btnCreateMovie.UseVisualStyleBackColor = true;
             // 
-            // btnCreateAddActor
+            // btnRemoveActor
             // 
-            btnCreateAddActor.Location = new Point(648, 334);
-            btnCreateAddActor.Name = "btnCreateAddActor";
-            btnCreateAddActor.Size = new Size(96, 23);
-            btnCreateAddActor.TabIndex = 19;
-            btnCreateAddActor.Text = "Add Actor";
-            btnCreateAddActor.UseVisualStyleBackColor = true;
+            btnRemoveActor.Location = new Point(530, 334);
+            btnRemoveActor.Name = "btnRemoveActor";
+            btnRemoveActor.Size = new Size(96, 23);
+            btnRemoveActor.TabIndex = 21;
+            btnRemoveActor.Text = "Remove Actor";
+            btnRemoveActor.UseVisualStyleBackColor = true;
             // 
             // MovieForm
             // 
@@ -342,10 +364,10 @@
             Movie.ResumeLayout(false);
             CreateMovie.ResumeLayout(false);
             CreateMovie.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCreateActors).EndInit();
             SearchMovies.ResumeLayout(false);
             SearchMovies.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvSearchMovie).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
@@ -369,7 +391,7 @@
         private Button btnOpenMovieDetails;
         private Button btnSearchMovie;
         private Label lblSelectActors;
-        private DataGridView dataGridView1;
+        private DataGridView dgvCreateActors;
         private Label lblSearchMovies;
         private ListBox lstCreateActors;
         private Label lblCreateActorLN;
@@ -377,6 +399,8 @@
         private TextBox txtCreateActorLN;
         private TextBox txtCreateActorFN;
         private Label lblCreateFeaturedActors;
-        private Button btnCreateAddActor;
+        private Button btnAddActor;
+        private Button btnRemoveActor;
+        private Button btnCreateMovie;
     }
 }
