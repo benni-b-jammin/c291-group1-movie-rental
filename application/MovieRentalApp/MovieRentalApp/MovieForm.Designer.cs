@@ -1,16 +1,48 @@
-﻿namespace MovieRentalApp
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+namespace MovieRentalApp
 {
     partial class MovieForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
+
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        private TabControl Movie;
+        private TabPage CreateMovie;
+        private TabPage SearchMovies;
+
+        private Label lblCreateMovieName;
+        private Label lblCreateMovieType;
+        private Label lblCreateDistFee;
+        private Label lblCreateNumCopies;
+        private Label lblCreateMovie;
+        private Label lblSearchMovieName;
+        private Label lblSelectActors;
+        private Label lblCreateActorLN;
+        private Label lblCreateActorFN;
+        private Label lblCreateFeaturedActors;
+        private Label lblSearchMovies;
+
+        private ListBox lstCreateMovieType;
+        private ListBox lstCreateActors;
+
+        private TextBox txtCreateDistFee;
+        private TextBox txtCreateNumCopies;
+        private TextBox txtSearchMovie;
+        private TextBox txtCreateActorLN;
+        private TextBox txtCreateActorFN;
+        private TextBox txtCreateMovieName;
+
+        private DataGridView dgvSearchMovie;
+        private DataGridView dgvCreateActors;
+
+        private Button btnMovieDetails;
+        private Button btnSearchMovie;
+        private Button btnAddActor;
+        private Button btnRemoveActor;
+        private Button btnCreateMovie;
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,16 +52,12 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             Movie = new TabControl();
             CreateMovie = new TabPage();
+            btnRemoveActor = new Button();
+            btnCreateMovie = new Button();
             btnAddActor = new Button();
             lblCreateFeaturedActors = new Label();
             txtCreateActorLN = new TextBox();
@@ -50,13 +78,12 @@
             txtCreateMovieName = new TextBox();
             SearchMovies = new TabPage();
             lblSearchMovies = new Label();
-            btnOpenMovieDetails = new Button();
+            btnMovieDetails = new Button();
             btnSearchMovie = new Button();
-            textBox1 = new TextBox();
+            txtSearchMovie = new TextBox();
             lblSearchMovieName = new Label();
             dgvSearchMovie = new DataGridView();
-            btnCreateMovie = new Button();
-            btnRemoveActor = new Button();
+
             Movie.SuspendLayout();
             CreateMovie.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCreateActors).BeginInit();
@@ -104,7 +131,25 @@
             CreateMovie.TabIndex = 0;
             CreateMovie.Text = "Create Movie";
             CreateMovie.UseVisualStyleBackColor = true;
-            CreateMovie.Click += CreateMovie_Click;
+
+            // 
+            // btnRemoveActor
+            // 
+            btnRemoveActor.Location = new Point(530, 334);
+            btnRemoveActor.Name = "btnRemoveActor";
+            btnRemoveActor.Size = new Size(96, 23);
+            btnRemoveActor.TabIndex = 21;
+            btnRemoveActor.Text = "Remove Actor";
+            btnRemoveActor.UseVisualStyleBackColor = true;
+            // 
+            // btnCreateMovie
+            // 
+            btnCreateMovie.Location = new Point(23, 334);
+            btnCreateMovie.Name = "btnCreateMovie";
+            btnCreateMovie.Size = new Size(96, 23);
+            btnCreateMovie.TabIndex = 20;
+            btnCreateMovie.Text = "Create Movie";
+            btnCreateMovie.UseVisualStyleBackColor = true;
             // 
             // btnAddActor
             // 
@@ -145,7 +190,6 @@
             lstCreateActors.Name = "lstCreateActors";
             lstCreateActors.Size = new Size(120, 94);
             lstCreateActors.TabIndex = 15;
-            lstCreateActors.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             // 
             // lblCreateActorLN
             // 
@@ -164,7 +208,6 @@
             lblCreateActorFN.Size = new Size(64, 15);
             lblCreateActorFN.TabIndex = 13;
             lblCreateActorFN.Text = "First Name";
-            lblCreateActorFN.Click += label1_Click_1;
             // 
             // lblSelectActors
             // 
@@ -175,7 +218,6 @@
             lblSelectActors.Size = new Size(224, 25);
             lblSelectActors.TabIndex = 12;
             lblSelectActors.Text = "Select Featured Actor(s)";
-            lblSelectActors.Click += lblCreateSFeaturedActors_Click;
             // 
             // dgvCreateActors
             // 
@@ -245,7 +287,6 @@
             lstCreateMovieType.Name = "lstCreateMovieType";
             lstCreateMovieType.Size = new Size(120, 64);
             lstCreateMovieType.TabIndex = 3;
-            lstCreateMovieType.SelectedIndexChanged += lstCreateMovieType_SelectedIndexChanged;
             // 
             // lblCreateMovieName
             // 
@@ -266,9 +307,9 @@
             // SearchMovies
             // 
             SearchMovies.Controls.Add(lblSearchMovies);
-            SearchMovies.Controls.Add(btnOpenMovieDetails);
+            SearchMovies.Controls.Add(btnMovieDetails);
             SearchMovies.Controls.Add(btnSearchMovie);
-            SearchMovies.Controls.Add(textBox1);
+            SearchMovies.Controls.Add(txtSearchMovie);
             SearchMovies.Controls.Add(lblSearchMovieName);
             SearchMovies.Controls.Add(dgvSearchMovie);
             SearchMovies.Location = new Point(4, 24);
@@ -290,14 +331,15 @@
             lblSearchMovies.TabIndex = 5;
             lblSearchMovies.Text = "Search Movies";
             // 
-            // btnOpenMovieDetails
+            // btnMovieDetails
             // 
-            btnOpenMovieDetails.Location = new Point(589, 60);
-            btnOpenMovieDetails.Name = "btnOpenMovieDetails";
-            btnOpenMovieDetails.Size = new Size(115, 23);
-            btnOpenMovieDetails.TabIndex = 4;
-            btnOpenMovieDetails.Text = "Open Details";
-            btnOpenMovieDetails.UseVisualStyleBackColor = true;
+            btnMovieDetails.Location = new Point(589, 60);
+            btnMovieDetails.Name = "btnMovieDetails";
+            btnMovieDetails.Size = new Size(115, 23);
+            btnMovieDetails.TabIndex = 4;
+            btnMovieDetails.Text = "Open Details";
+            btnMovieDetails.UseVisualStyleBackColor = true;
+            btnMovieDetails.Click += btnMovieDetails_Click;
             // 
             // btnSearchMovie
             // 
@@ -307,13 +349,14 @@
             btnSearchMovie.TabIndex = 3;
             btnSearchMovie.Text = "Search";
             btnSearchMovie.UseVisualStyleBackColor = true;
+            btnSearchMovie.Click += btnSearchMovie_Click;
             // 
-            // textBox1
+            // txtSearchMovie
             // 
-            textBox1.Location = new Point(114, 59);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(229, 23);
-            textBox1.TabIndex = 2;
+            txtSearchMovie.Location = new Point(114, 59);
+            txtSearchMovie.Name = "txtSearchMovie";
+            txtSearchMovie.Size = new Size(229, 23);
+            txtSearchMovie.TabIndex = 2;
             // 
             // lblSearchMovieName
             // 
@@ -323,7 +366,6 @@
             lblSearchMovieName.Size = new Size(75, 15);
             lblSearchMovieName.TabIndex = 1;
             lblSearchMovieName.Text = "Movie Name";
-            lblSearchMovieName.Click += lblSearchMovieName_Click;
             // 
             // dgvSearchMovie
             // 
@@ -332,25 +374,6 @@
             dgvSearchMovie.Name = "dgvSearchMovie";
             dgvSearchMovie.Size = new Size(733, 263);
             dgvSearchMovie.TabIndex = 0;
-            dgvSearchMovie.CellContentClick += dataGridView1_CellContentClick;
-            // 
-            // btnCreateMovie
-            // 
-            btnCreateMovie.Location = new Point(23, 334);
-            btnCreateMovie.Name = "btnCreateMovie";
-            btnCreateMovie.Size = new Size(96, 23);
-            btnCreateMovie.TabIndex = 20;
-            btnCreateMovie.Text = "Create Movie";
-            btnCreateMovie.UseVisualStyleBackColor = true;
-            // 
-            // btnRemoveActor
-            // 
-            btnRemoveActor.Location = new Point(530, 334);
-            btnRemoveActor.Name = "btnRemoveActor";
-            btnRemoveActor.Size = new Size(96, 23);
-            btnRemoveActor.TabIndex = 21;
-            btnRemoveActor.Text = "Remove Actor";
-            btnRemoveActor.UseVisualStyleBackColor = true;
             // 
             // MovieForm
             // 
@@ -371,36 +394,6 @@
             ResumeLayout(false);
         }
 
-        #endregion
 
-        private TabControl Movie;
-        private TabPage CreateMovie;
-        private TabPage SearchMovies;
-        private TextBox txtCreateMovieName;
-        private Label lblCreateMovieName;
-        private ListBox lstCreateMovieType;
-        private Label lblCreateMovieType;
-        private TextBox txtCreateDistFee;
-        private Label lblCreateDistFee;
-        private TextBox txtCreateNumCopies;
-        private Label lblCreateNumCopies;
-        private Label lblCreateMovie;
-        private DataGridView dgvSearchMovie;
-        private TextBox textBox1;
-        private Label lblSearchMovieName;
-        private Button btnOpenMovieDetails;
-        private Button btnSearchMovie;
-        private Label lblSelectActors;
-        private DataGridView dgvCreateActors;
-        private Label lblSearchMovies;
-        private ListBox lstCreateActors;
-        private Label lblCreateActorLN;
-        private Label lblCreateActorFN;
-        private TextBox txtCreateActorLN;
-        private TextBox txtCreateActorFN;
-        private Label lblCreateFeaturedActors;
-        private Button btnAddActor;
-        private Button btnRemoveActor;
-        private Button btnCreateMovie;
     }
 }
