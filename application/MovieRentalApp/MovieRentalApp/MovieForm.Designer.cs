@@ -6,7 +6,23 @@ namespace MovieRentalApp
     partial class MovieForm
     {
 
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
         private TabControl Movie;
         private TabPage CreateMovie;
@@ -42,16 +58,6 @@ namespace MovieRentalApp
         private Button btnAddActor;
         private Button btnRemoveActor;
         private Button btnCreateMovie;
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         private void InitializeComponent()
         {
             Movie = new TabControl();
@@ -339,7 +345,6 @@ namespace MovieRentalApp
             btnMovieDetails.TabIndex = 4;
             btnMovieDetails.Text = "Open Details";
             btnMovieDetails.UseVisualStyleBackColor = true;
-            btnMovieDetails.Click += btnMovieDetails_Click;
             // 
             // btnSearchMovie
             // 
@@ -349,7 +354,7 @@ namespace MovieRentalApp
             btnSearchMovie.TabIndex = 3;
             btnSearchMovie.Text = "Search";
             btnSearchMovie.UseVisualStyleBackColor = true;
-            btnSearchMovie.Click += btnSearchMovie_Click;
+
             // 
             // txtSearchMovie
             // 
@@ -383,7 +388,6 @@ namespace MovieRentalApp
             Controls.Add(Movie);
             Name = "MovieForm";
             Text = "Movie Manager  ";
-            Load += MovieForm_Load;
             Movie.ResumeLayout(false);
             CreateMovie.ResumeLayout(false);
             CreateMovie.PerformLayout();

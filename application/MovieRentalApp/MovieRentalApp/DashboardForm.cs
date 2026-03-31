@@ -69,5 +69,10 @@ namespace MovieRentalApp
         private void lblPlaceholder_Click(object sender, EventArgs e)
         {
         }
+
+        private void DashboardForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
