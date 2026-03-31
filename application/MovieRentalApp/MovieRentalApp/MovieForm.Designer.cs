@@ -89,7 +89,7 @@ namespace MovieRentalApp
             txtSearchMovie = new TextBox();
             lblSearchMovieName = new Label();
             dgvSearchMovie = new DataGridView();
-
+            lblDollarSgn = new Label();
             Movie.SuspendLayout();
             CreateMovie.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCreateActors).BeginInit();
@@ -110,6 +110,7 @@ namespace MovieRentalApp
             // 
             // CreateMovie
             // 
+            CreateMovie.Controls.Add(lblDollarSgn);
             CreateMovie.Controls.Add(btnRemoveActor);
             CreateMovie.Controls.Add(btnCreateMovie);
             CreateMovie.Controls.Add(btnAddActor);
@@ -137,7 +138,6 @@ namespace MovieRentalApp
             CreateMovie.TabIndex = 0;
             CreateMovie.Text = "Create Movie";
             CreateMovie.UseVisualStyleBackColor = true;
-
             // 
             // btnRemoveActor
             // 
@@ -147,6 +147,7 @@ namespace MovieRentalApp
             btnRemoveActor.TabIndex = 21;
             btnRemoveActor.Text = "Remove Actor";
             btnRemoveActor.UseVisualStyleBackColor = true;
+            btnRemoveActor.Click += btnRemoveActor_Click;
             // 
             // btnCreateMovie
             // 
@@ -156,6 +157,7 @@ namespace MovieRentalApp
             btnCreateMovie.TabIndex = 20;
             btnCreateMovie.Text = "Create Movie";
             btnCreateMovie.UseVisualStyleBackColor = true;
+            btnCreateMovie.Click += btnCreateMovie_Click;
             // 
             // btnAddActor
             // 
@@ -165,6 +167,7 @@ namespace MovieRentalApp
             btnAddActor.TabIndex = 19;
             btnAddActor.Text = "Add Actor";
             btnAddActor.UseVisualStyleBackColor = true;
+            btnAddActor.Click += btnAddActor_Click;
             // 
             // lblCreateFeaturedActors
             // 
@@ -293,6 +296,7 @@ namespace MovieRentalApp
             lstCreateMovieType.Name = "lstCreateMovieType";
             lstCreateMovieType.Size = new Size(120, 64);
             lstCreateMovieType.TabIndex = 3;
+            lstCreateMovieType.SelectedIndexChanged += lstCreateMovieType_SelectedIndexChanged;
             // 
             // lblCreateMovieName
             // 
@@ -309,6 +313,7 @@ namespace MovieRentalApp
             txtCreateMovieName.Name = "txtCreateMovieName";
             txtCreateMovieName.Size = new Size(213, 23);
             txtCreateMovieName.TabIndex = 1;
+            txtCreateMovieName.TextChanged += txtCreateMovieName_TextChanged;
             // 
             // SearchMovies
             // 
@@ -345,6 +350,7 @@ namespace MovieRentalApp
             btnMovieDetails.TabIndex = 4;
             btnMovieDetails.Text = "Open Details";
             btnMovieDetails.UseVisualStyleBackColor = true;
+            btnMovieDetails.Click += btnMovieDetails_Click;
             // 
             // btnSearchMovie
             // 
@@ -354,7 +360,7 @@ namespace MovieRentalApp
             btnSearchMovie.TabIndex = 3;
             btnSearchMovie.Text = "Search";
             btnSearchMovie.UseVisualStyleBackColor = true;
-
+            btnSearchMovie.Click += btnSearchMovie_Click;
             // 
             // txtSearchMovie
             // 
@@ -380,6 +386,17 @@ namespace MovieRentalApp
             dgvSearchMovie.Size = new Size(733, 263);
             dgvSearchMovie.TabIndex = 0;
             // 
+            // lblDollarSgn
+            // 
+            lblDollarSgn.AutoSize = true;
+            lblDollarSgn.Font = new Font("Tahoma", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDollarSgn.Location = new Point(128, 186);
+            lblDollarSgn.Name = "lblDollarSgn";
+            lblDollarSgn.Size = new Size(14, 14);
+            lblDollarSgn.TabIndex = 22;
+            lblDollarSgn.Text = "$";
+            lblDollarSgn.Click += label1_Click;
+            // 
             // MovieForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -398,6 +415,6 @@ namespace MovieRentalApp
             ResumeLayout(false);
         }
 
-
+        private Label lblDollarSgn;
     }
 }
