@@ -28,28 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            listBox1 = new ListBox();
-            listBox2 = new ListBox();
+            listCust = new ListBox();
+            listQueue = new ListBox();
             label1 = new Label();
             label2 = new Label();
             button1 = new Button();
             SuspendLayout();
             // 
-            // listBox1
+            // listCust
             // 
-            listBox1.FormattingEnabled = true;
-            listBox1.Location = new Point(12, 50);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(361, 349);
-            listBox1.TabIndex = 0;
+            listCust.Font = new Font("Segoe UI", 12F);
+            listCust.FormattingEnabled = true;
+            listCust.Location = new Point(12, 50);
+            listCust.Name = "listCust";
+            listCust.Size = new Size(361, 340);
+            listCust.TabIndex = 0;
+            listCust.SelectedIndexChanged += listCust_SelectedIndexChanged;
             // 
-            // listBox2
+            // listQueue
             // 
-            listBox2.FormattingEnabled = true;
-            listBox2.Location = new Point(427, 50);
-            listBox2.Name = "listBox2";
-            listBox2.Size = new Size(361, 304);
-            listBox2.TabIndex = 1;
+            listQueue.Font = new Font("Segoe UI", 12F);
+            listQueue.FormattingEnabled = true;
+            listQueue.Location = new Point(427, 50);
+            listQueue.Name = "listQueue";
+            listQueue.Size = new Size(361, 298);
+            listQueue.TabIndex = 1;
             // 
             // label1
             // 
@@ -89,8 +92,8 @@
             Controls.Add(button1);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(listBox2);
-            Controls.Add(listBox1);
+            Controls.Add(listQueue);
+            Controls.Add(listCust);
             Name = "RentalForm";
             Text = "Rentals";
             ResumeLayout(false);
@@ -99,8 +102,8 @@
 
         #endregion
 
-        private ListBox listBox1;
-        private ListBox listBox2;
+        private ListBox listCust;
+        private ListBox listQueue;
         private Label label1;
         private Label label2;
         private Button button1;
