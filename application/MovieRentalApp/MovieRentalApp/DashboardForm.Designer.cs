@@ -73,6 +73,7 @@
             btnRentalScreen.TabIndex = 3;
             btnRentalScreen.Text = "Rentals";
             btnRentalScreen.UseVisualStyleBackColor = true;
+            btnRentalScreen.Click += btnRentalScreen_Click;
             // 
             // btnReportScreen
             // 

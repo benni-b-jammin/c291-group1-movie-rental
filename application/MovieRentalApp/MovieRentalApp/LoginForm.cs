@@ -1,6 +1,8 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
 
 namespace MovieRentalApp
@@ -45,18 +47,20 @@ namespace MovieRentalApp
                 return;
             }
 
+            byte[] passwordhash = GetSha256Hash(password);
+
             try
             {
                 string query = @"
                     SELECT COUNT(*)
                     FROM Employee
                     WHERE Username = @username
-                      AND PasswordHash = HASHBYTES('SHA2_256', @password);";
+                      AND PasswordHash = @passwordhash;";
 
                 using (SqlCommand loginCommand = new SqlCommand(query, myConnection))
                 {
                     loginCommand.Parameters.Add("@username", SqlDbType.VarChar, 40).Value = username;
-                    loginCommand.Parameters.Add("@password", SqlDbType.VarChar, 50).Value = password;
+                    loginCommand.Parameters.Add("@passwordhash", SqlDbType.VarBinary, 32).Value = passwordhash;
 
                     int count = Convert.ToInt32(loginCommand.ExecuteScalar());
 
@@ -93,6 +97,14 @@ namespace MovieRentalApp
 
         private void lblTitle_Click(object sender, EventArgs e)
         {
+        }
+        public static byte[] GetSha256Hash(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return Array.Empty<byte>();
+
+            byte[] inputBytes = Encoding.UTF8.GetBytes(text);
+            return SHA256.HashData(inputBytes);
         }
     }
 }
