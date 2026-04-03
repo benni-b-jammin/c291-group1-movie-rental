@@ -60,7 +60,7 @@ INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRe
 	VALUES (NEXT VALUE FOR MovieIDSeq, 'Scooby Doo', 'Comedy', 5.30, 5, 1);
 
 INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
-	VALUES (NEXT VALUE FOR MovieIDSeq, 'Zootopia', 'Comedy', 8.30, 2, 3);
+	VALUES (NEXT VALUE FOR MovieIDSeq, 'Zootopia', 'Comedy', 8.30, 3, 3);
 
 INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
 	VALUES (NEXT VALUE FOR MovieIDSeq, 'Batman Begins', 'Action', 2.25, 4, 0);

@@ -165,3 +165,41 @@ VALUES (
     '5207099191',
     'Home'
 );
+
+INSERT INTO Employee (
+    EmployeeID,
+    SSN,
+    LastName,
+    FirstName,
+    Address,
+    City,
+    State,
+    ZipCode,
+    StartDate,
+    Username,
+    PasswordHash
+)
+VALUES (
+    NEXT VALUE FOR EmployeeIDSeq,
+    '246813579',
+    'Nguyen',
+    'Priya',
+    '88 Jasper Avenue',
+    'Edmonton',
+    'AB',
+    'T5J1N1',
+    '2025-12-15',
+    'pnguyen',
+    HASHBYTES('SHA2_256', 'maple')
+);
+
+INSERT INTO EmployeePhone (
+    EmployeeID,
+    PhoneNum,
+    PhoneType
+)
+VALUES (
+    (SELECT EmployeeID FROM Employee WHERE SSN = '246813579'),
+    '7805551122',
+    'Home'
+);
