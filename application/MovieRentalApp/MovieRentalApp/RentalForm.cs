@@ -108,24 +108,24 @@ namespace MovieRentalApp
                     FROM Customer
                     WHERE 1=1";
 
-                if (!string.IsNullOrWhiteSpace(FirstNameText.Text))
+                if (!(FirstNameText.Text == ""))
                 {
                     query += " AND FirstName = @FirstName";
                 }
 
-                if (!string.IsNullOrWhiteSpace(LastNameText.Text))
+                if (!(LastNameText.Text == ""))
                 {
                     query += " AND LastName = @LastName";
                 }
 
 
                 SqlDataAdapter adapter = new SqlDataAdapter(query, myConnection);
-                if (!string.IsNullOrWhiteSpace(FirstNameText.Text))
+                if (!(FirstNameText.Text == ""))
                 {
                     adapter.SelectCommand.Parameters.AddWithValue("@FirstName", FirstNameText.Text);
                 }
 
-                if (!string.IsNullOrWhiteSpace(LastNameText.Text))
+                if (!(LastNameText.Text == ""))
                 {
                     adapter.SelectCommand.Parameters.AddWithValue("@LastName", LastNameText.Text);
                 }
