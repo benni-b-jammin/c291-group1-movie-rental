@@ -17,7 +17,7 @@ This project uses an SQL Server database to run a mock movie rental application 
 From the project root, you can run everything with:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\data\RentalDB_populate.ps1
+powershell -ExecutionPolicy Bypass -File .\RentalDB_populate.ps1
 ```
 
 This runs:
