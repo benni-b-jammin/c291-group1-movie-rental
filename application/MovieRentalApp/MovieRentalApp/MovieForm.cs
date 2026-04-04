@@ -4,12 +4,15 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Net;
 using System.Text;
+using System.Transactions;
 using System.Windows.Forms;
+using static System.Windows.Forms.AxHost;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace MovieRentalApp
 {
-    // Connect to database.
     public partial class MovieForm : Form
     {
         private SqlConnection myConnection;
@@ -66,7 +69,7 @@ namespace MovieRentalApp
         {
             if (dgvCreateActors.CurrentRow == null)
             {
-                MessageBox.Show("Select an actor first.");
+                MessageBox.Show("Please select an actor.");
                 return;
             }
 
@@ -79,7 +82,7 @@ namespace MovieRentalApp
             }
             else
             {
-                MessageBox.Show("That actor is already in the movie.");
+                MessageBox.Show("The selected actor is already in the movie.");
             }
         }
 
@@ -91,18 +94,137 @@ namespace MovieRentalApp
             }
             else
             {
-                MessageBox.Show("Select an actor from the list first.");
+                MessageBox.Show("Please select an actor from the list.");
             }
         }
-        
+
         private void btnCreateMovie_Click(object sender, EventArgs e)
         {
-            string movieName = txtCreateMovieName.Text.Trim();
-            //... movieType = lstCreateMovieType ...
-            float distFee = int.Parse(txtCreateDistFee.Text.Trim()); //not saved as int, is saved as numeric(6,2) in db
-            int numCopies = int.Parse(txtCreateNumCopies.Text.Trim()); //**int
-            // from lstCreateActors.Items, create a list of actors to add to the movie/relate to the movie in the database; and add them
 
+            // Ensure all necessary information is provided.
+            if (txtCreateMovieName.Text.Trim() == "" ||
+                cbCreateMovieType.SelectedIndex == -1 ||
+                txtCreateDistFee.Text.Trim() == "" ||
+                decimal.Parse(txtCreateDistFee.Text.Trim()) <= 0 ||
+                txtCreateNumCopies.Text.Trim() == "" ||
+                int.Parse(txtCreateNumCopies.Text.Trim()) <= 0)
+            {
+
+                MessageBox.Show("Please fill in all required fields.\nNumber of copies and distribution fee must be greater than 0.");
+                return;
+            }
+
+            string movieName = txtCreateMovieName.Text.Trim();
+            string movieType = (cbCreateMovieType.SelectedItem).ToString();
+            decimal distFee = decimal.Parse(txtCreateDistFee.Text.Trim()); //numeric(6,2 aka ####.##) in db
+            int numCopies = int.Parse(txtCreateNumCopies.Text.Trim());
+
+            //string input = txtCreateDistFee.Text.Trim();
+
+            //if (!decimal.TryParse(input, out decimal distFee))
+            //{
+            //    MessageBox.Show("Please enter a valid distribution fee.");
+            //    return;
+            //}
+
+            SqlTransaction transaction = null;
+
+            // Add the movie to the DB.
+            try
+            {
+                transaction = myConnection.BeginTransaction();
+
+                string insertCustomerQuery = @"
+                    INSERT INTO Movie
+                    (
+                        MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented
+                    )
+                    VALUES
+                    (
+                        NEXT VALUE FOR MovieIDSeq, @movieName, @movieType, @distFee, @numCopies, 0
+                    );";
+
+                using (SqlCommand cmd = new SqlCommand(insertCustomerQuery, myConnection, transaction))
+                {
+                    cmd.Parameters.Add("@movieName", SqlDbType.VarChar, 40).Value = movieName;
+                    cmd.Parameters.Add("@movieType", SqlDbType.VarChar, 10).Value = movieType;
+
+                    var distFeeParam = cmd.Parameters.Add("@distFee", SqlDbType.Decimal);
+                    distFeeParam.Precision = 6;
+                    distFeeParam.Scale = 2;
+                    distFeeParam.Value = distFee;
+
+                    cmd.Parameters.Add("@numCopies", SqlDbType.Int).Value = numCopies;
+                    cmd.ExecuteNonQuery();
+                }
+
+                // Get the MovieID to insert relation into AppearedIn. Very limited search in case of multiple movies with the same name.
+                int movieID;
+                string getMovieIDQuery = @"
+                    SELECT MovieID
+                    FROM Movie
+                    WHERE MovieName = @movieName
+                    AND MovieType = @movieType
+                    AND DistFee = @distFee
+                    AND NumOfCopies = @numCopies;";
+
+                using (SqlCommand cmd = new SqlCommand(getMovieIDQuery, myConnection, transaction))
+                {
+                    cmd.Parameters.Add("@movieName", SqlDbType.VarChar, 40).Value = movieName;
+                    cmd.Parameters.Add("@movieType", SqlDbType.VarChar, 10).Value = movieType;
+
+                    var distFeeParam = cmd.Parameters.Add("@distFee", SqlDbType.Decimal);
+                    distFeeParam.Precision = 6;
+                    distFeeParam.Scale = 2;
+                    distFeeParam.Value = distFee;
+
+                    cmd.Parameters.Add("@numCopies", SqlDbType.Int).Value = numCopies;
+                    movieID = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+
+                // from lstCreateActors.Items, create a list of actors to add to the movie/relate to the movie in the database; and add them
+                foreach (var item in lstCreateActors.Items)
+                {
+                    string actorInfo = item.ToString();
+                    int start = actorInfo.IndexOf('(') + 1;
+                    int end = actorInfo.IndexOf(')');
+                    int actorID = int.Parse(actorInfo.Substring(start, end - start));
+
+                    string insertAppearedIn = @"
+                        INSERT INTO AppearedIn (MovieID, ActorID)
+                        VALUES (@movieID, @actorID);";
+
+                    using (SqlCommand cmd = new SqlCommand(insertAppearedIn, myConnection, transaction))
+                    {
+                        cmd.Parameters.Add("@movieID", SqlDbType.Int).Value = movieID;
+                        cmd.Parameters.Add("@actorID", SqlDbType.Int).Value = actorID;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+                transaction.Commit();
+                MessageBox.Show("Movie created successfully.");
+                ClearCreateFields();
+                }
+
+                catch (Exception ex)
+                {
+                if (transaction != null)
+                    transaction.Rollback();
+
+                MessageBox.Show(ex.ToString(), "Create Movie Error");
+                }
+               }
+        private void ClearCreateFields()
+        {
+            txtCreateMovieName.Clear();
+            txtCreateDistFee.Clear();
+            txtCreateNumCopies.Clear();
+            txtCreateActorFN.Clear();
+            txtCreateActorLN.Clear();
+            lstCreateActors.Items.Clear();
+            dgvCreateActors.DataSource = null;
+            cbCreateMovieType.SelectedIndex = -1;
         }
 
         // Search Movie Screen
