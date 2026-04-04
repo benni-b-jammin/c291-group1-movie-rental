@@ -39,8 +39,6 @@ namespace MovieRentalApp
         private Label lblCreateActorFN;
         private Label lblCreateFeaturedActors;
         private Label lblSearchMovies;
-
-        private ListBox lstCreateMovieType;
         private ListBox lstCreateActors;
 
         private TextBox txtCreateDistFee;
@@ -62,6 +60,9 @@ namespace MovieRentalApp
         {
             Movie = new TabControl();
             CreateMovie = new TabPage();
+            btnSearchActor = new Button();
+            cbCreateMovieType = new ComboBox();
+            lblDollarSgn = new Label();
             btnRemoveActor = new Button();
             btnCreateMovie = new Button();
             btnAddActor = new Button();
@@ -79,7 +80,6 @@ namespace MovieRentalApp
             txtCreateDistFee = new TextBox();
             lblCreateDistFee = new Label();
             lblCreateMovieType = new Label();
-            lstCreateMovieType = new ListBox();
             lblCreateMovieName = new Label();
             txtCreateMovieName = new TextBox();
             SearchMovies = new TabPage();
@@ -89,7 +89,6 @@ namespace MovieRentalApp
             txtSearchMovie = new TextBox();
             lblSearchMovieName = new Label();
             dgvSearchMovie = new DataGridView();
-
             Movie.SuspendLayout();
             CreateMovie.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCreateActors).BeginInit();
@@ -110,6 +109,9 @@ namespace MovieRentalApp
             // 
             // CreateMovie
             // 
+            CreateMovie.Controls.Add(btnSearchActor);
+            CreateMovie.Controls.Add(cbCreateMovieType);
+            CreateMovie.Controls.Add(lblDollarSgn);
             CreateMovie.Controls.Add(btnRemoveActor);
             CreateMovie.Controls.Add(btnCreateMovie);
             CreateMovie.Controls.Add(btnAddActor);
@@ -127,7 +129,6 @@ namespace MovieRentalApp
             CreateMovie.Controls.Add(txtCreateDistFee);
             CreateMovie.Controls.Add(lblCreateDistFee);
             CreateMovie.Controls.Add(lblCreateMovieType);
-            CreateMovie.Controls.Add(lstCreateMovieType);
             CreateMovie.Controls.Add(lblCreateMovieName);
             CreateMovie.Controls.Add(txtCreateMovieName);
             CreateMovie.Location = new Point(4, 24);
@@ -137,16 +138,47 @@ namespace MovieRentalApp
             CreateMovie.TabIndex = 0;
             CreateMovie.Text = "Create Movie";
             CreateMovie.UseVisualStyleBackColor = true;
-
+            // 
+            // btnSearchActor
+            // 
+            btnSearchActor.Location = new Point(648, 103);
+            btnSearchActor.Name = "btnSearchActor";
+            btnSearchActor.Size = new Size(96, 23);
+            btnSearchActor.TabIndex = 24;
+            btnSearchActor.Text = "Search";
+            btnSearchActor.UseVisualStyleBackColor = true;
+            btnSearchActor.Click += btnSearchActor_Click;
+            // 
+            // cbCreateMovieType
+            // 
+            cbCreateMovieType.FormattingEnabled = true;
+            cbCreateMovieType.Items.AddRange(new object[] { "Action", "Comedy", "Drama", "Foreign" });
+            cbCreateMovieType.Location = new Point(143, 104);
+            cbCreateMovieType.Name = "cbCreateMovieType";
+            cbCreateMovieType.Size = new Size(121, 23);
+            cbCreateMovieType.TabIndex = 23;
+            cbCreateMovieType.Text = "(none selected)";
+            cbCreateMovieType.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            // 
+            // lblDollarSgn
+            // 
+            lblDollarSgn.AutoSize = true;
+            lblDollarSgn.Font = new Font("Tahoma", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDollarSgn.Location = new Point(126, 145);
+            lblDollarSgn.Name = "lblDollarSgn";
+            lblDollarSgn.Size = new Size(14, 14);
+            lblDollarSgn.TabIndex = 22;
+            lblDollarSgn.Text = "$";
             // 
             // btnRemoveActor
             // 
-            btnRemoveActor.Location = new Point(530, 334);
+            btnRemoveActor.Location = new Point(23, 255);
             btnRemoveActor.Name = "btnRemoveActor";
             btnRemoveActor.Size = new Size(96, 23);
             btnRemoveActor.TabIndex = 21;
             btnRemoveActor.Text = "Remove Actor";
             btnRemoveActor.UseVisualStyleBackColor = true;
+            btnRemoveActor.Click += btnRemoveActor_Click;
             // 
             // btnCreateMovie
             // 
@@ -156,6 +188,7 @@ namespace MovieRentalApp
             btnCreateMovie.TabIndex = 20;
             btnCreateMovie.Text = "Create Movie";
             btnCreateMovie.UseVisualStyleBackColor = true;
+            btnCreateMovie.Click += btnCreateMovie_Click;
             // 
             // btnAddActor
             // 
@@ -165,11 +198,12 @@ namespace MovieRentalApp
             btnAddActor.TabIndex = 19;
             btnAddActor.Text = "Add Actor";
             btnAddActor.UseVisualStyleBackColor = true;
+            btnAddActor.Click += btnAddActor_Click;
             // 
             // lblCreateFeaturedActors
             // 
             lblCreateFeaturedActors.AutoSize = true;
-            lblCreateFeaturedActors.Location = new Point(23, 268);
+            lblCreateFeaturedActors.Location = new Point(23, 228);
             lblCreateFeaturedActors.Name = "lblCreateFeaturedActors";
             lblCreateFeaturedActors.Size = new Size(98, 15);
             lblCreateFeaturedActors.TabIndex = 18;
@@ -179,22 +213,22 @@ namespace MovieRentalApp
             // 
             txtCreateActorLN.Location = new Point(498, 103);
             txtCreateActorLN.Name = "txtCreateActorLN";
-            txtCreateActorLN.Size = new Size(167, 23);
+            txtCreateActorLN.Size = new Size(128, 23);
             txtCreateActorLN.TabIndex = 17;
             // 
             // txtCreateActorFN
             // 
             txtCreateActorFN.Location = new Point(498, 63);
             txtCreateActorFN.Name = "txtCreateActorFN";
-            txtCreateActorFN.Size = new Size(167, 23);
+            txtCreateActorFN.Size = new Size(128, 23);
             txtCreateActorFN.TabIndex = 16;
             // 
             // lstCreateActors
             // 
             lstCreateActors.FormattingEnabled = true;
-            lstCreateActors.Location = new Point(143, 263);
+            lstCreateActors.Location = new Point(143, 228);
             lstCreateActors.Name = "lstCreateActors";
-            lstCreateActors.Size = new Size(120, 94);
+            lstCreateActors.Size = new Size(234, 94);
             lstCreateActors.TabIndex = 15;
             // 
             // lblCreateActorLN
@@ -230,7 +264,7 @@ namespace MovieRentalApp
             dgvCreateActors.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvCreateActors.Location = new Point(418, 146);
             dgvCreateActors.Name = "dgvCreateActors";
-            dgvCreateActors.Size = new Size(326, 167);
+            dgvCreateActors.Size = new Size(326, 176);
             dgvCreateActors.TabIndex = 11;
             // 
             // lblCreateMovie
@@ -245,7 +279,7 @@ namespace MovieRentalApp
             // 
             // txtCreateNumCopies
             // 
-            txtCreateNumCopies.Location = new Point(143, 219);
+            txtCreateNumCopies.Location = new Point(143, 184);
             txtCreateNumCopies.Name = "txtCreateNumCopies";
             txtCreateNumCopies.Size = new Size(75, 23);
             txtCreateNumCopies.TabIndex = 8;
@@ -253,7 +287,7 @@ namespace MovieRentalApp
             // lblCreateNumCopies
             // 
             lblCreateNumCopies.AutoSize = true;
-            lblCreateNumCopies.Location = new Point(23, 222);
+            lblCreateNumCopies.Location = new Point(23, 184);
             lblCreateNumCopies.Name = "lblCreateNumCopies";
             lblCreateNumCopies.Size = new Size(104, 15);
             lblCreateNumCopies.TabIndex = 7;
@@ -261,7 +295,7 @@ namespace MovieRentalApp
             // 
             // txtCreateDistFee
             // 
-            txtCreateDistFee.Location = new Point(143, 182);
+            txtCreateDistFee.Location = new Point(143, 143);
             txtCreateDistFee.Name = "txtCreateDistFee";
             txtCreateDistFee.Size = new Size(75, 23);
             txtCreateDistFee.TabIndex = 6;
@@ -269,7 +303,7 @@ namespace MovieRentalApp
             // lblCreateDistFee
             // 
             lblCreateDistFee.AutoSize = true;
-            lblCreateDistFee.Location = new Point(23, 185);
+            lblCreateDistFee.Location = new Point(23, 143);
             lblCreateDistFee.Name = "lblCreateDistFee";
             lblCreateDistFee.Size = new Size(90, 15);
             lblCreateDistFee.TabIndex = 5;
@@ -279,25 +313,16 @@ namespace MovieRentalApp
             // 
             lblCreateMovieType.AutoSize = true;
             lblCreateMovieType.ForeColor = SystemColors.ControlText;
-            lblCreateMovieType.Location = new Point(23, 103);
+            lblCreateMovieType.Location = new Point(23, 104);
             lblCreateMovieType.Name = "lblCreateMovieType";
             lblCreateMovieType.Size = new Size(68, 15);
             lblCreateMovieType.TabIndex = 4;
             lblCreateMovieType.Text = "Movie Type";
             // 
-            // lstCreateMovieType
-            // 
-            lstCreateMovieType.FormattingEnabled = true;
-            lstCreateMovieType.Items.AddRange(new object[] { "Action", "Comedy", "Drama", "Foreign" });
-            lstCreateMovieType.Location = new Point(143, 100);
-            lstCreateMovieType.Name = "lstCreateMovieType";
-            lstCreateMovieType.Size = new Size(120, 64);
-            lstCreateMovieType.TabIndex = 3;
-            // 
             // lblCreateMovieName
             // 
             lblCreateMovieName.AutoSize = true;
-            lblCreateMovieName.Location = new Point(23, 66);
+            lblCreateMovieName.Location = new Point(23, 63);
             lblCreateMovieName.Name = "lblCreateMovieName";
             lblCreateMovieName.Size = new Size(75, 15);
             lblCreateMovieName.TabIndex = 2;
@@ -307,8 +332,9 @@ namespace MovieRentalApp
             // 
             txtCreateMovieName.Location = new Point(143, 63);
             txtCreateMovieName.Name = "txtCreateMovieName";
-            txtCreateMovieName.Size = new Size(213, 23);
+            txtCreateMovieName.Size = new Size(234, 23);
             txtCreateMovieName.TabIndex = 1;
+            txtCreateMovieName.TextChanged += txtCreateMovieName_TextChanged;
             // 
             // SearchMovies
             // 
@@ -345,6 +371,7 @@ namespace MovieRentalApp
             btnMovieDetails.TabIndex = 4;
             btnMovieDetails.Text = "Open Details";
             btnMovieDetails.UseVisualStyleBackColor = true;
+            btnMovieDetails.Click += btnMovieDetails_Click;
             // 
             // btnSearchMovie
             // 
@@ -354,7 +381,7 @@ namespace MovieRentalApp
             btnSearchMovie.TabIndex = 3;
             btnSearchMovie.Text = "Search";
             btnSearchMovie.UseVisualStyleBackColor = true;
-
+            btnSearchMovie.Click += btnSearchMovie_Click;
             // 
             // txtSearchMovie
             // 
@@ -398,6 +425,8 @@ namespace MovieRentalApp
             ResumeLayout(false);
         }
 
-
+        private Label lblDollarSgn;
+        private ComboBox cbCreateMovieType;
+        private Button btnSearchActor;
     }
 }
