@@ -28,34 +28,42 @@
         /// </summary>
         private void InitializeComponent()
         {
-            listBox1 = new ListBox();
-            listBox2 = new ListBox();
+            listCust = new ListBox();
+            listQueue = new ListBox();
             label1 = new Label();
             label2 = new Label();
-            button1 = new Button();
+            DispenseButton = new Button();
+            FirstNameText = new TextBox();
+            LastNameText = new TextBox();
+            buttonFilter = new Button();
+            FirstLabel = new Label();
+            label3 = new Label();
             SuspendLayout();
             // 
-            // listBox1
+            // listCust
             // 
-            listBox1.FormattingEnabled = true;
-            listBox1.Location = new Point(12, 50);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(361, 349);
-            listBox1.TabIndex = 0;
+            listCust.Font = new Font("Segoe UI", 12F);
+            listCust.FormattingEnabled = true;
+            listCust.Location = new Point(12, 113);
+            listCust.Name = "listCust";
+            listCust.Size = new Size(361, 277);
+            listCust.TabIndex = 0;
+            listCust.SelectedIndexChanged += listCust_SelectedIndexChanged;
             // 
-            // listBox2
+            // listQueue
             // 
-            listBox2.FormattingEnabled = true;
-            listBox2.Location = new Point(427, 50);
-            listBox2.Name = "listBox2";
-            listBox2.Size = new Size(361, 304);
-            listBox2.TabIndex = 1;
+            listQueue.Font = new Font("Segoe UI", 12F);
+            listQueue.FormattingEnabled = true;
+            listQueue.Location = new Point(427, 50);
+            listQueue.Name = "listQueue";
+            listQueue.Size = new Size(361, 298);
+            listQueue.TabIndex = 1;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 15F);
-            label1.Location = new Point(129, 19);
+            label1.Location = new Point(138, 19);
             label1.Name = "label1";
             label1.Size = new Size(96, 28);
             label1.TabIndex = 2;
@@ -71,26 +79,75 @@
             label2.TabIndex = 3;
             label2.Text = "Queue";
             // 
-            // button1
+            // DispenseButton
             // 
-            button1.ForeColor = SystemColors.ActiveCaptionText;
-            button1.Location = new Point(559, 360);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 4;
-            button1.Text = "Dispense";
-            button1.UseVisualStyleBackColor = true;
+            DispenseButton.ForeColor = SystemColors.ActiveCaptionText;
+            DispenseButton.Location = new Point(559, 360);
+            DispenseButton.Name = "DispenseButton";
+            DispenseButton.Size = new Size(75, 23);
+            DispenseButton.TabIndex = 4;
+            DispenseButton.Text = "Dispense";
+            DispenseButton.UseVisualStyleBackColor = true;
+            DispenseButton.Click += DispenseButton_Click;
+            // 
+            // FirstNameText
+            // 
+            FirstNameText.Location = new Point(47, 50);
+            FirstNameText.Name = "FirstNameText";
+            FirstNameText.Size = new Size(130, 23);
+            FirstNameText.TabIndex = 5;
+            // 
+            // LastNameText
+            // 
+            LastNameText.Location = new Point(243, 50);
+            LastNameText.Name = "LastNameText";
+            LastNameText.Size = new Size(130, 23);
+            LastNameText.TabIndex = 6;
+            // 
+            // buttonFilter
+            // 
+            buttonFilter.ForeColor = SystemColors.ActiveCaptionText;
+            buttonFilter.Location = new Point(149, 84);
+            buttonFilter.Name = "buttonFilter";
+            buttonFilter.Size = new Size(75, 23);
+            buttonFilter.TabIndex = 7;
+            buttonFilter.Text = "Filter";
+            buttonFilter.UseVisualStyleBackColor = true;
+            buttonFilter.Click += buttonFilter_Click;
+            // 
+            // FirstLabel
+            // 
+            FirstLabel.AutoSize = true;
+            FirstLabel.Location = new Point(12, 53);
+            FirstLabel.Name = "FirstLabel";
+            FirstLabel.Size = new Size(32, 15);
+            FirstLabel.TabIndex = 8;
+            FirstLabel.Text = "First:";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(210, 53);
+            label3.Name = "label3";
+            label3.Size = new Size(31, 15);
+            label3.TabIndex = 9;
+            label3.Text = "Last:";
             // 
             // RentalForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(button1);
+            Controls.Add(label3);
+            Controls.Add(FirstLabel);
+            Controls.Add(buttonFilter);
+            Controls.Add(LastNameText);
+            Controls.Add(FirstNameText);
+            Controls.Add(DispenseButton);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(listBox2);
-            Controls.Add(listBox1);
+            Controls.Add(listQueue);
+            Controls.Add(listCust);
             Name = "RentalForm";
             Text = "Rentals";
             ResumeLayout(false);
@@ -99,10 +156,15 @@
 
         #endregion
 
-        private ListBox listBox1;
-        private ListBox listBox2;
+        private ListBox listCust;
+        private ListBox listQueue;
         private Label label1;
         private Label label2;
-        private Button button1;
+        private Button DispenseButton;
+        private TextBox FirstNameText;
+        private TextBox LastNameText;
+        private Button buttonFilter;
+        private Label FirstLabel;
+        private Label label3;
     }
 }
