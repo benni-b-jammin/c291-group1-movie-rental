@@ -1,22 +1,28 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Net;
 using System.Text;
 using System.Windows.Forms;
+using static System.Windows.Forms.AxHost;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace MovieRentalApp
 {
     public partial class RentalForm : Form
     {
         private SqlConnection myConnection;
-        public RentalForm(SqlConnection connection)
-        {
+        string currentUser;
+        public RentalForm(SqlConnection connection, string username)
+        { 
             InitializeComponent();
             myConnection = connection;
             LoadCustomers();
+            currentUser = username;
         }
 
         private void LoadCustomers()
@@ -65,10 +71,6 @@ namespace MovieRentalApp
                         q.MovieID,
                         q.QueuePosition,
                         m.MovieName,
-                        CASE
-                            WHEN (m.NumOfCopies - m.CopiesRented) > 0 THEN 'Available'
-                            ELSE 'Unavailable'
-                            END AS Availibility,
                         CAST(q.QueuePosition AS VARCHAR) + '. ' + m.MovieName + ' (' + 
                         CASE 
                             WHEN (m.NumOfCopies - m.CopiesRented) > 0 THEN 'Available'
@@ -95,7 +97,7 @@ namespace MovieRentalApp
             }
         }
 
-        
+
 
         private void buttonFilter_Click(object sender, EventArgs e)
         {
@@ -108,24 +110,24 @@ namespace MovieRentalApp
                     FROM Customer
                     WHERE 1=1";
 
-                if (!string.IsNullOrWhiteSpace(FirstNameText.Text))
+                if (!(FirstNameText.Text == ""))
                 {
                     query += " AND FirstName = @FirstName";
                 }
 
-                if (!string.IsNullOrWhiteSpace(LastNameText.Text))
+                if (!(LastNameText.Text == ""))
                 {
                     query += " AND LastName = @LastName";
                 }
 
 
                 SqlDataAdapter adapter = new SqlDataAdapter(query, myConnection);
-                if (!string.IsNullOrWhiteSpace(FirstNameText.Text))
+                if (!(FirstNameText.Text == ""))
                 {
                     adapter.SelectCommand.Parameters.AddWithValue("@FirstName", FirstNameText.Text);
                 }
 
-                if (!string.IsNullOrWhiteSpace(LastNameText.Text))
+                if (!(LastNameText.Text == ""))
                 {
                     adapter.SelectCommand.Parameters.AddWithValue("@LastName", LastNameText.Text);
                 }
@@ -145,6 +147,108 @@ namespace MovieRentalApp
 
         private void DispenseButton_Click(object sender, EventArgs e)
         {
+            if(listCust.SelectedValue == null)
+{
+                MessageBox.Show("Please Select Customer");
+                return;
+            }
+
+            if (listQueue.SelectedValue == null)
+            {
+                MessageBox.Show("Please Select Movie");
+                return;
+            }
+
+            
+            if (listQueue.Text.Contains("Unavailable"))
+            {
+                MessageBox.Show("Movie is unavailable");
+                return;
+            }
+
+            int customerID = Convert.ToInt32(listCust.SelectedValue);
+            int movieID = Convert.ToInt32(listQueue.SelectedValue);
+            int position = listQueue.SelectedIndex + 1;
+
+            SqlTransaction transaction = null;
+            
+            try
+            {
+                transaction = myConnection.BeginTransaction();
+
+
+                string rentalQuery = @"
+                    INSERT INTO Rental
+                    (
+                        RentalID, EmployeeID, CustomerID, MovieID
+                    )
+                    VALUES
+                    (
+                        NEXT VALUE FOR RentalIDSeq,
+                        (SELECT EmployeeID FROM Employee WHERE Username = @currentUser), 
+                        @customerID,
+                        @movieID
+                    );";
+
+                using (SqlCommand cmd = new SqlCommand(rentalQuery, myConnection, transaction))
+                {
+                    cmd.Parameters.Add("@currentUser", SqlDbType.VarChar, 40).Value = currentUser;
+                    cmd.Parameters.Add("@customerID", SqlDbType.Int).Value = customerID;
+                    cmd.Parameters.Add("@movieID", SqlDbType.Int).Value = movieID;
+                    cmd.ExecuteNonQuery();
+                }
+
+                string deleteQueue = @"
+                DELETE FROM QueueUp
+                WHERE CustomerID = @customerID AND MovieID = @movieID";
+
+                using (SqlCommand cmd = new SqlCommand(deleteQueue, myConnection, transaction))
+                {
+                    cmd.Parameters.Add("@customerID", SqlDbType.Int).Value = customerID;
+                    cmd.Parameters.Add("@movieID", SqlDbType.Int).Value = movieID;
+                    cmd.ExecuteNonQuery();
+                }
+
+                string shiftQueue = @"
+                UPDATE QueueUp
+                SET QueuePosition = QueuePosition - 1
+                WHERE CustomerID = @customerID AND QueuePosition > @position";
+
+                using (SqlCommand cmd = new SqlCommand(shiftQueue, myConnection, transaction))
+                {
+                    cmd.Parameters.Add("@customerID", SqlDbType.Int).Value = customerID;
+                    cmd.Parameters.Add("@position", SqlDbType.Int).Value = position;
+                    cmd.ExecuteNonQuery();
+                }
+
+                string copiesRented = @"
+                UPDATE Movie
+                SET CopiesRented = CopiesRented + 1
+                WHERE MovieID = @movieID";
+
+                using (SqlCommand cmd = new SqlCommand(copiesRented, myConnection, transaction))
+                {
+                    cmd.Parameters.Add("@movieID", SqlDbType.Int).Value = movieID;
+                    cmd.ExecuteNonQuery();
+                }
+
+                transaction.Commit();
+
+                if (int.TryParse(listCust.SelectedValue.ToString(), out int customerId))
+                {
+                    LoadQueue(customerId);
+                }
+
+                MessageBox.Show("Movie Added to Customer Rental.");
+           
+            }
+            catch (Exception ex)
+            {
+                if (transaction != null)
+                    transaction.Rollback();
+
+                MessageBox.Show(ex.ToString(), "Dispense Error");
+            }
             
         }
     }
