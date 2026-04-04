@@ -158,7 +158,7 @@ namespace MovieRentalApp
                     cmd.ExecuteNonQuery();
                 }
 
-                // Get the MovieID to insert relation into AppearedIn. Very limited search in case of multiple movies with the same name.
+                // Get the MovieID. Very refined search in case of multiple movies with the same name.
                 int movieID;
                 string getMovieIDQuery = @"
                     SELECT MovieID
@@ -182,7 +182,7 @@ namespace MovieRentalApp
                     movieID = Convert.ToInt32(cmd.ExecuteScalar());
                 }
 
-                // from lstCreateActors.Items, create a list of actors to add to the movie/relate to the movie in the database; and add them
+                // From lstCreateActors.Items, add each actor to AppearedIn with the MovieID.
                 foreach (var item in lstCreateActors.Items)
                 {
                     string actorInfo = item.ToString();
@@ -266,16 +266,6 @@ namespace MovieRentalApp
         }
 
         private void btnMovieDetails_Click(object sender, EventArgs e)
-        {
-        }
-        
-
-        private void txtCreateMovieName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
