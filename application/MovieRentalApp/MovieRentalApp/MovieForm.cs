@@ -268,6 +268,19 @@ namespace MovieRentalApp
         private void btnMovieDetails_Click(object sender, EventArgs e)
         {
 
+            if (dgvSearchMovie.CurrentRow == null)
+            {
+                MessageBox.Show("Select a movie first.");
+                return;
+            }
+
+            int movieID = Convert.ToInt32(dgvSearchMovie.CurrentRow.Cells["MovieID"].Value);
+
+            MovieDetailsForm movieDetailsForm = new MovieDetailsForm(myConnection, movieID);
+            movieDetailsForm.ShowDialog();
+
+            btnSearchMovie.PerformClick();
+      
         }
     }
 }
