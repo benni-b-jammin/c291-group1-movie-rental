@@ -62,8 +62,14 @@ namespace MovieRentalApp
 
         private void btnRentalScreen_Click(object sender, EventArgs e)
         {
-            RentalForm rentalForm = new RentalForm(myConnection);
+            RentalForm rentalForm = new RentalForm(myConnection, currentUser);
             rentalForm.Show();
+        }
+
+        private void btnReportScreen_Click(object sender, EventArgs e)
+        {
+            ReportForm reportForm = new ReportForm(myConnection);
+            reportForm.Show();
         }
 
         private void lblPlaceholder_Click(object sender, EventArgs e)
@@ -73,6 +79,12 @@ namespace MovieRentalApp
         private void DashboardForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnReportScreen_Click_1(object sender, EventArgs e)
+        {
+            ReportForm reportForm = new ReportForm(myConnection);
+            reportForm.Show();
         }
     }
 }
