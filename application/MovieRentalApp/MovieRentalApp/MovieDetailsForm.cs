@@ -63,7 +63,6 @@ namespace MovieRentalApp
         private void LoadActorDetails()
         {
             List<string> actors = new List<string>();
-
             try
             {
                 string query = @"
@@ -147,7 +146,6 @@ namespace MovieRentalApp
                     }
                 }
             }
-
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "Search Error");
@@ -197,14 +195,25 @@ namespace MovieRentalApp
                 txtNumCopies.Text.Trim() == "" ||
                 int.Parse(txtNumCopies.Text.Trim()) <= 0)
             {
-
                 MessageBox.Show("Please fill in all required fields.\nNumber of copies and distribution fee must be greater than 0.");
+                return;
+            }
+
+            if (decimal.Parse(txtDistFee.Text.Trim()) >= 9999.99m) 
+            {
+                MessageBox.Show("Please enter a valid distribution fee.");
+                return;
+            }
+
+            int copiesRented = GetCopiesRented();
+            if (copiesRented > int.Parse(txtNumCopies.Text.Trim()))
+            {
+                MessageBox.Show("There are currently " + copiesRented + " copies of this movie rented by customers.\nPlease adjust the number of copies.");
                 return;
             }
 
             // Update the movie details.
             SqlTransaction transaction = null;
-            
             try
             {
                 transaction = myConnection.BeginTransaction();
@@ -224,7 +233,7 @@ namespace MovieRentalApp
                     var distFeeParam = cmd.Parameters.Add("@distFee", SqlDbType.Decimal);
                     distFeeParam.Precision = 6;
                     distFeeParam.Scale = 2;
-                    distFeeParam.Value = decimal.Parse(txtDistFee.Text.Trim());
+                    distFeeParam.Value = Math.Round(decimal.Parse(txtDistFee.Text.Trim()), 2);
 
                     cmd.Parameters.Add("@numOfCopies", SqlDbType.VarChar, 40).Value = int.Parse(txtNumCopies.Text.Trim());
                     cmd.Parameters.Add("@movieID", SqlDbType.Int).Value = movieID;
@@ -272,21 +281,10 @@ namespace MovieRentalApp
 
         private void btnDeleteMovie_Click(object sender, EventArgs e)
         {
-            int copiesRented;
-            string getMovieIDQuery = @"
-                    SELECT CopiesRented
-                    FROM Movie
-                    WHERE MovieID = @movieID";
-
-            using (SqlCommand cmd = new SqlCommand(getMovieIDQuery, myConnection))
-            {
-                cmd.Parameters.Add("@movieID", SqlDbType.Int).Value = movieID;
-                copiesRented = Convert.ToInt32(cmd.ExecuteScalar());
-            }
-
+            int copiesRented = GetCopiesRented();
             if (copiesRented != 0)
             {
-                MessageBox.Show("Cannot delete movie while copies are rented.");
+                MessageBox.Show("Cannot delete movie while copies are currently rented out.\nPlease try again later.");
                 return;
             }
 
@@ -300,7 +298,6 @@ namespace MovieRentalApp
                 return;
 
             SqlTransaction transaction = null;
-
             try
             {
                 transaction = myConnection.BeginTransaction();
@@ -338,5 +335,20 @@ namespace MovieRentalApp
                 MessageBox.Show(ex.ToString(), "Delete Error");
             }
         }
+
+        private int GetCopiesRented() 
+        {
+            string getMovieIDQuery = @"
+                    SELECT CopiesRented
+                    FROM Movie
+                    WHERE MovieID = @movieID";
+
+            using (SqlCommand cmd = new SqlCommand(getMovieIDQuery, myConnection))
+            {
+                cmd.Parameters.Add("@movieID", SqlDbType.Int).Value = movieID;
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
+
     }
 }

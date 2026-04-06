@@ -105,27 +105,23 @@ namespace MovieRentalApp
             if (txtCreateMovieName.Text.Trim() == "" ||
                 cbCreateMovieType.SelectedIndex == -1 ||
                 txtCreateDistFee.Text.Trim() == "" ||
-                decimal.Parse(txtCreateDistFee.Text.Trim()) <= 0 ||
                 txtCreateNumCopies.Text.Trim() == "" ||
                 int.Parse(txtCreateNumCopies.Text.Trim()) <= 0)
             {
-
                 MessageBox.Show("Please fill in all required fields.\nNumber of copies and distribution fee must be greater than 0.");
+                return;
+            }
+
+            if (decimal.Parse(txtCreateDistFee.Text.Trim()) >= 9999.99m)
+            {                 
+                MessageBox.Show("Please enter a valid distribution fee.");
                 return;
             }
 
             string movieName = txtCreateMovieName.Text.Trim();
             string movieType = (cbCreateMovieType.SelectedItem).ToString();
-            decimal distFee = decimal.Parse(txtCreateDistFee.Text.Trim()); //numeric(6,2 aka ####.##) in db
+            decimal distFee = Math.Round(decimal.Parse(txtCreateDistFee.Text.Trim()), 2); //numeric(6,2 aka ####.##) in db
             int numCopies = int.Parse(txtCreateNumCopies.Text.Trim());
-
-            //string input = txtCreateDistFee.Text.Trim();
-
-            //if (!decimal.TryParse(input, out decimal distFee))
-            //{
-            //    MessageBox.Show("Please enter a valid distribution fee.");
-            //    return;
-            //}
 
             SqlTransaction transaction = null;
 
@@ -228,7 +224,6 @@ namespace MovieRentalApp
         }
 
         // Search Movie Screen
-
         private void btnSearchMovie_Click(object sender, EventArgs e)
         {
             string movieName = txtSearchMovie.Text.Trim();
