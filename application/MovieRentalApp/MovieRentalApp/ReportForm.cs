@@ -68,15 +68,13 @@ namespace MovieRentalApp
                     SELECT TOP 5 WITH TIES
                         A.ActorID,
                         A.ActorName,
-                        A.Gender,
                         AVG(CAST(AR.ARate AS FLOAT)) AS AvgRating
                     FROM ACTOR A
                     JOIN ActorRating AR on A.ActorID = AR.ActorID
                     WHERE (@GenderFilter IS NULL or A.Gender = @GenderFilter)
                     GROUP BY
                         A.ActorID,
-                        A.ActorName,
-                        A.Gender
+                        A.ActorName
                     ORDER BY
                         AvgRating DESC;";
 
