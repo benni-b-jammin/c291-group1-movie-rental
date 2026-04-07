@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Net.Mail;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace MovieRentalApp
@@ -20,9 +22,9 @@ namespace MovieRentalApp
         {
             string phone = txtCreatePhone.Text.Trim();
 
-            if (phone == "")
+            if (!IsValidPhone(phone))
             {
-                MessageBox.Show("Enter a phone number first.");
+                MessageBox.Show("Phone number must be exactly 10 digits.");
                 return;
             }
 
@@ -51,8 +53,8 @@ namespace MovieRentalApp
             string lastName = txtCreateLastName.Text.Trim();
             string address = txtCreateAddress.Text.Trim();
             string city = txtCreateCity.Text.Trim();
-            string state = txtCreateState.Text.Trim();
-            string zip = txtCreateZip.Text.Trim();
+            string state = txtCreateState.Text.Trim().ToUpper();
+            string zip = txtCreateZip.Text.Trim().ToUpper();
             string email = txtCreateEmail.Text.Trim();
             string cardNum = txtCreateCardNum.Text.Trim();
 
@@ -67,6 +69,76 @@ namespace MovieRentalApp
                 state == "" || zip == "" || email == "" || cardNum == "")
             {
                 MessageBox.Show("Please fill in all customer fields.");
+                return;
+            }
+
+            if (!IsValidName(firstName))
+            {
+                MessageBox.Show("First name contains invalid characters.");
+                return;
+            }
+
+            if (!IsValidName(lastName))
+            {
+                MessageBox.Show("Last name contains invalid characters.");
+                return;
+            }
+
+            if (!IsValidState(state))
+            {
+                MessageBox.Show("State must be exactly 2 letters.");
+                return;
+            }
+
+            if (!IsValidZip(zip))
+            {
+                MessageBox.Show("Zip code must be exactly 6 letters/numbers.");
+                return;
+            }
+
+            if (!IsValidEmail(email))
+            {
+                MessageBox.Show("Enter a valid email address.");
+                return;
+            }
+
+            if (accountNum <= 0)
+            {
+                MessageBox.Show("Account number must be a positive integer.");
+                return;
+            }
+
+            if (!IsValidCardNumber(cardNum))
+            {
+                MessageBox.Show("Card number must be exactly 16 digits.");
+                return;
+            }
+
+            if (lstCreatePhones.Items.Count == 0)
+            {
+                MessageBox.Show("Add at least one phone number.");
+                return;
+            }
+
+            try
+            {
+                string checkEmailQuery = "SELECT COUNT(*) FROM Customer WHERE Email = @email;";
+
+                using (SqlCommand cmd = new SqlCommand(checkEmailQuery, myConnection))
+                {
+                    cmd.Parameters.Add("@email", SqlDbType.VarChar, 40).Value = email;
+
+                    int existingCount = Convert.ToInt32(cmd.ExecuteScalar());
+                    if (existingCount > 0)
+                    {
+                        MessageBox.Show("A customer with that email already exists.");
+                        return;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Validation Error");
                 return;
             }
 
@@ -163,9 +235,10 @@ namespace MovieRentalApp
             string firstName = txtSearchFirstName.Text.Trim();
             string lastName = txtSearchLastName.Text.Trim();
 
-            if (firstName.Length < 2 && lastName.Length < 2)
+            if ((firstName != "" && firstName.Length < 2) ||
+                (lastName != "" && lastName.Length < 2))
             {
-                MessageBox.Show("Enter at least 2 characters in first or last name.");
+                MessageBox.Show("If used, first or last name must be at least 2 characters.");
                 return;
             }
 
@@ -213,6 +286,44 @@ namespace MovieRentalApp
             detailsForm.ShowDialog();
 
             btnSearchCustomer.PerformClick();
+        }
+
+        private bool IsValidPhone(string phone)
+        {
+            return Regex.IsMatch(phone, @"^\d{10}$");
+        }
+
+        private bool IsValidCardNumber(string cardNumber)
+        {
+            return Regex.IsMatch(cardNumber, @"^\d{16}$");
+        }
+
+        private bool IsValidState(string state)
+        {
+            return Regex.IsMatch(state, @"^[A-Za-z]{2}$");
+        }
+
+        private bool IsValidZip(string zip)
+        {
+            return Regex.IsMatch(zip, @"^[A-Za-z0-9]{6}$");
+        }
+
+        private bool IsValidName(string name)
+        {
+            return Regex.IsMatch(name, @"^[A-Za-z\s'\-]+$");
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                MailAddress addr = new MailAddress(email);
+                return addr.Address == email && email.Contains("@");
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
