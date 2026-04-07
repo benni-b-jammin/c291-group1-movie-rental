@@ -158,7 +158,6 @@ namespace MovieRentalApp
             cbCreateMovieType.Size = new Size(121, 23);
             cbCreateMovieType.TabIndex = 23;
             cbCreateMovieType.Text = "(none selected)";
-            cbCreateMovieType.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // lblDollarSgn
             // 
@@ -334,7 +333,6 @@ namespace MovieRentalApp
             txtCreateMovieName.Name = "txtCreateMovieName";
             txtCreateMovieName.Size = new Size(234, 23);
             txtCreateMovieName.TabIndex = 1;
-            txtCreateMovieName.TextChanged += txtCreateMovieName_TextChanged;
             // 
             // SearchMovies
             // 
