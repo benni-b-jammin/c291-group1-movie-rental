@@ -105,27 +105,23 @@ namespace MovieRentalApp
             if (txtCreateMovieName.Text.Trim() == "" ||
                 cbCreateMovieType.SelectedIndex == -1 ||
                 txtCreateDistFee.Text.Trim() == "" ||
-                decimal.Parse(txtCreateDistFee.Text.Trim()) <= 0 ||
                 txtCreateNumCopies.Text.Trim() == "" ||
                 int.Parse(txtCreateNumCopies.Text.Trim()) <= 0)
             {
-
                 MessageBox.Show("Please fill in all required fields.\nNumber of copies and distribution fee must be greater than 0.");
+                return;
+            }
+
+            if (decimal.Parse(txtCreateDistFee.Text.Trim()) >= 9999.99m)
+            {                 
+                MessageBox.Show("Please enter a valid distribution fee.");
                 return;
             }
 
             string movieName = txtCreateMovieName.Text.Trim();
             string movieType = (cbCreateMovieType.SelectedItem).ToString();
-            decimal distFee = decimal.Parse(txtCreateDistFee.Text.Trim()); //numeric(6,2 aka ####.##) in db
+            decimal distFee = Math.Round(decimal.Parse(txtCreateDistFee.Text.Trim()), 2); //numeric(6,2 aka ####.##) in db
             int numCopies = int.Parse(txtCreateNumCopies.Text.Trim());
-
-            //string input = txtCreateDistFee.Text.Trim();
-
-            //if (!decimal.TryParse(input, out decimal distFee))
-            //{
-            //    MessageBox.Show("Please enter a valid distribution fee.");
-            //    return;
-            //}
 
             SqlTransaction transaction = null;
 
@@ -158,7 +154,7 @@ namespace MovieRentalApp
                     cmd.ExecuteNonQuery();
                 }
 
-                // Get the MovieID to insert relation into AppearedIn. Very limited search in case of multiple movies with the same name.
+                // Get the MovieID. Very refined search in case of multiple movies with the same name.
                 int movieID;
                 string getMovieIDQuery = @"
                     SELECT MovieID
@@ -182,7 +178,7 @@ namespace MovieRentalApp
                     movieID = Convert.ToInt32(cmd.ExecuteScalar());
                 }
 
-                // from lstCreateActors.Items, create a list of actors to add to the movie/relate to the movie in the database; and add them
+                // From lstCreateActors.Items, add each actor to AppearedIn with the MovieID.
                 foreach (var item in lstCreateActors.Items)
                 {
                     string actorInfo = item.ToString();
@@ -228,7 +224,6 @@ namespace MovieRentalApp
         }
 
         // Search Movie Screen
-
         private void btnSearchMovie_Click(object sender, EventArgs e)
         {
             string movieName = txtSearchMovie.Text.Trim();
@@ -267,17 +262,20 @@ namespace MovieRentalApp
 
         private void btnMovieDetails_Click(object sender, EventArgs e)
         {
-        }
-        
 
-        private void txtCreateMovieName_TextChanged(object sender, EventArgs e)
-        {
+            if (dgvSearchMovie.CurrentRow == null)
+            {
+                MessageBox.Show("Select a movie first.");
+                return;
+            }
 
-        }
+            int movieID = Convert.ToInt32(dgvSearchMovie.CurrentRow.Cells["MovieID"].Value);
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
+            MovieDetailsForm movieDetailsForm = new MovieDetailsForm(myConnection, movieID);
+            movieDetailsForm.ShowDialog();
 
+            btnSearchMovie.PerformClick();
+      
         }
     }
 }
