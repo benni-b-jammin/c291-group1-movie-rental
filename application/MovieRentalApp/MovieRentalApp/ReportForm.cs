@@ -74,7 +74,7 @@ namespace MovieRentalApp
                     WHERE (@GenderFilter IS NULL or A.Gender = @GenderFilter)
                     GROUP BY
                         A.ActorID,
-                        A.ActorName
+                        A.ActorName,
                     ORDER BY
                         AvgRating DESC;";
 
@@ -128,8 +128,11 @@ namespace MovieRentalApp
                     WHERE
                         YEAR(R.CheckoutDate) = @Year
                     GROUP BY
+                        MONTH(R.CheckoutDate),
                         DATENAME(MONTH, R.CheckoutDate),
-                        YEAR(R.CheckoutDate);";
+                        YEAR(R.CheckoutDate)
+                    ORDER BY
+                        MONTH(R.CheckoutDate);";
 
                 using (SqlCommand cmd = new SqlCommand(query, myConnection))
                 {
