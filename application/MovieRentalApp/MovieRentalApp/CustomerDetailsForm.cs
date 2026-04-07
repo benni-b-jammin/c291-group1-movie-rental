@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Net.Mail;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace MovieRentalApp
@@ -91,9 +93,9 @@ namespace MovieRentalApp
         {
             string phone = txtPhone.Text.Trim();
 
-            if (phone == "")
+            if (!IsValidPhone(phone))
             {
-                MessageBox.Show("Enter a phone number first.");
+                MessageBox.Show("Phone number must be exactly 10 digits.");
                 return;
             }
 
@@ -151,8 +153,98 @@ namespace MovieRentalApp
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            string firstName = txtFirstName.Text.Trim();
+            string lastName = txtLastName.Text.Trim();
+            string address = txtAddress.Text.Trim();
+            string city = txtCity.Text.Trim();
+            string state = txtState.Text.Trim().ToUpper();
+            string zip = txtZip.Text.Trim().ToUpper();
+            string email = txtEmail.Text.Trim();
+            string cardNum = txtCardNum.Text.Trim();
+
+            int accountNum;
+            if (!int.TryParse(txtAccountNum.Text.Trim(), out accountNum))
+            {
+                MessageBox.Show("Account number must be an integer.");
+                return;
+            }
+
+            if (firstName == "" || lastName == "" || address == "" || city == "" ||
+                state == "" || zip == "" || email == "" || cardNum == "")
+            {
+                MessageBox.Show("Please fill in all customer fields.");
+                return;
+            }
+
+            if (!IsValidName(firstName))
+            {
+                MessageBox.Show("First name contains invalid characters.");
+                return;
+            }
+
+            if (!IsValidName(lastName))
+            {
+                MessageBox.Show("Last name contains invalid characters.");
+                return;
+            }
+
+            if (!IsValidState(state))
+            {
+                MessageBox.Show("State must be exactly 2 letters.");
+                return;
+            }
+
+            if (!IsValidZip(zip))
+            {
+                MessageBox.Show("Zip code must be exactly 6 letters/numbers.");
+                return;
+            }
+
+            if (!IsValidEmail(email))
+            {
+                MessageBox.Show("Enter a valid email address.");
+                return;
+            }
+
+            if (accountNum <= 0)
+            {
+                MessageBox.Show("Account number must be a positive integer.");
+                return;
+            }
+
+            if (!IsValidCardNumber(cardNum))
+            {
+                MessageBox.Show("Card number must be exactly 16 digits.");
+                return;
+            }
+
+            if (lstPhones.Items.Count == 0)
+            {
+                MessageBox.Show("Customer must have at least one phone number.");
+                return;
+            }
+
             try
             {
+                string checkEmailQuery = @"
+                    SELECT COUNT(*)
+                    FROM Customer
+                    WHERE Email = @email
+                      AND CustomerID <> @customerId;";
+
+                using (SqlCommand checkCmd = new SqlCommand(checkEmailQuery, myConnection))
+                {
+                    checkCmd.Parameters.Add("@email", SqlDbType.VarChar, 40).Value = email;
+                    checkCmd.Parameters.Add("@customerId", SqlDbType.Int).Value = customerId;
+
+                    int existingCount = Convert.ToInt32(checkCmd.ExecuteScalar());
+                    if (existingCount > 0)
+                    {
+                        MessageBox.Show("Another customer with that email already exists.");
+                        return;
+                    }
+                }
+
                 string query = @"
                     UPDATE Customer
                     SET FirstName = @firstName,
@@ -168,15 +260,15 @@ namespace MovieRentalApp
 
                 using (SqlCommand cmd = new SqlCommand(query, myConnection))
                 {
-                    cmd.Parameters.Add("@firstName", SqlDbType.VarChar, 40).Value = txtFirstName.Text.Trim();
-                    cmd.Parameters.Add("@lastName", SqlDbType.VarChar, 40).Value = txtLastName.Text.Trim();
-                    cmd.Parameters.Add("@address", SqlDbType.VarChar, 40).Value = txtAddress.Text.Trim();
-                    cmd.Parameters.Add("@city", SqlDbType.VarChar, 40).Value = txtCity.Text.Trim();
-                    cmd.Parameters.Add("@state", SqlDbType.NChar, 2).Value = txtState.Text.Trim();
-                    cmd.Parameters.Add("@zip", SqlDbType.NChar, 6).Value = txtZip.Text.Trim();
-                    cmd.Parameters.Add("@email", SqlDbType.VarChar, 40).Value = txtEmail.Text.Trim();
-                    cmd.Parameters.Add("@accountNum", SqlDbType.Int).Value = Convert.ToInt32(txtAccountNum.Text.Trim());
-                    cmd.Parameters.Add("@cardNum", SqlDbType.NChar, 16).Value = txtCardNum.Text.Trim();
+                    cmd.Parameters.Add("@firstName", SqlDbType.VarChar, 40).Value = firstName;
+                    cmd.Parameters.Add("@lastName", SqlDbType.VarChar, 40).Value = lastName;
+                    cmd.Parameters.Add("@address", SqlDbType.VarChar, 40).Value = address;
+                    cmd.Parameters.Add("@city", SqlDbType.VarChar, 40).Value = city;
+                    cmd.Parameters.Add("@state", SqlDbType.NChar, 2).Value = state;
+                    cmd.Parameters.Add("@zip", SqlDbType.NChar, 6).Value = zip;
+                    cmd.Parameters.Add("@email", SqlDbType.VarChar, 40).Value = email;
+                    cmd.Parameters.Add("@accountNum", SqlDbType.Int).Value = accountNum;
+                    cmd.Parameters.Add("@cardNum", SqlDbType.NChar, 16).Value = cardNum;
                     cmd.Parameters.Add("@customerId", SqlDbType.Int).Value = customerId;
 
                     cmd.ExecuteNonQuery();
@@ -238,6 +330,44 @@ namespace MovieRentalApp
                     transaction.Rollback();
 
                 MessageBox.Show(ex.ToString(), "Delete Error");
+            }
+        }
+
+        private bool IsValidPhone(string phone)
+        {
+            return Regex.IsMatch(phone, @"^\d{10}$");
+        }
+
+        private bool IsValidCardNumber(string cardNumber)
+        {
+            return Regex.IsMatch(cardNumber, @"^\d{16}$");
+        }
+
+        private bool IsValidState(string state)
+        {
+            return Regex.IsMatch(state, @"^[A-Za-z]{2}$");
+        }
+
+        private bool IsValidZip(string zip)
+        {
+            return Regex.IsMatch(zip, @"^[A-Za-z0-9]{6}$");
+        }
+
+        private bool IsValidName(string name)
+        {
+            return Regex.IsMatch(name, @"^[A-Za-z\s'\-]+$");
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                MailAddress addr = new MailAddress(email);
+                return addr.Address == email && email.Contains("@");
+            }
+            catch
+            {
+                return false;
             }
         }
     }

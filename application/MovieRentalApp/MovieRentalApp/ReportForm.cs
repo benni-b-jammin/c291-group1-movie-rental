@@ -58,7 +58,7 @@ namespace MovieRentalApp
                 //Radio buttons
                 if (Actors.Checked)
                     genderFilter = 1; //Actors
-                if (Actress.Checked)
+                else if (Actress.Checked)
                     genderFilter = 0; //Actresses
                 else if (ActressActor.Checked)
                     genderFilter = null; //Both
@@ -74,7 +74,7 @@ namespace MovieRentalApp
                     WHERE (@GenderFilter IS NULL or A.Gender = @GenderFilter)
                     GROUP BY
                         A.ActorID,
-                        A.ActorName,
+                        A.ActorName
                     ORDER BY
                         AvgRating DESC;";
 
@@ -88,6 +88,15 @@ namespace MovieRentalApp
                     SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                     DataTable table = new DataTable();
                     adapter.Fill(table);
+
+                    foreach (DataRow row in table.Rows)
+                    {
+                        if (row["AvgRating"] != DBNull.Value)
+                        {
+                            double value = Convert.ToDouble(row["AvgRating"]);
+                            row["AvgRating"] = Math.Ceiling(value * 100) / 100.0;
+                        }
+                    }
 
                     // Create the new window for results
                     Form resultsForm = new Form();
