@@ -310,7 +310,7 @@ namespace MovieRentalApp
             LoadCustomers();
 
             // Setting defaults so the form doesn't crash
-            SalesMonth.SelectedItem = "January";
+            //SalesMonth.SelectedItem = "January";
             SalesYear.SelectedItem = "2025";
 
             EmployeeMonth.SelectedItem = "January";
