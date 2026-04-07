@@ -11,6 +11,8 @@ Notes:
 - all ratings are associated with a specific returned rentals (ReturnDate is not null)
 */
 
+USE RentalDB;
+
 INSERT INTO MovieRating (RentalID, MRate)
 	VALUES(
 		(SELECT RentalID FROM Rental
