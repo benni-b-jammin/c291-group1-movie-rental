@@ -64,3 +64,10 @@ INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRe
 
 INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
 	VALUES (NEXT VALUE FOR MovieIDSeq, 'Batman Begins', 'Action', 2.25, 4, 0);
+
+-- TO DELETE
+INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
+	VALUES (NEXT VALUE FOR MovieIDSeq, 'Fast and Furious', 'Action', 5.00, 3, 0);
+
+INSERT INTO Movie (MovieID, MovieName, MovieType, DistFee, NumOfCopies, CopiesRented)
+	VALUES (NEXT VALUE FOR MovieIDSeq, 'Forrest Gump', 'Drama', 2.30, 2, 0);

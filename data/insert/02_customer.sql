@@ -103,3 +103,22 @@ INSERT INTO CustomerPhone (CustomerID, PhoneNum)
 		(SELECT CustomerID FROM Customer WHERE Email = 'GLewis@gmail.com'),
 		'8256156545'
 	);
+
+-- TO DELETE
+INSERT INTO Customer (CustomerID, LastName, FirstName, Address, City, State, ZipCode, Email, AccountNum, CardNum)
+	VALUES (NEXT VALUE FOR CustomerIDSeq, 'Patel', 'Asha', '4412 River Road', 'Calgary', 'AB', 'T2P4K7', 'apatel@gmail.com', 11, '6012345678901234');
+
+INSERT INTO CustomerPhone (CustomerID, PhoneNum)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'apatel@gmail.com'),
+		'4035557812'
+	);
+
+INSERT INTO Customer (CustomerID, LastName, FirstName, Address, City, State, ZipCode, Email, AccountNum, CardNum)
+	VALUES (NEXT VALUE FOR CustomerIDSeq, 'Chen', 'Marcus', '7821 Pine Avenue', 'Vancouver', 'BC', 'V5K2M4', 'mchen@gmail.com', 12, '4532987612345678');
+
+INSERT INTO CustomerPhone (CustomerID, PhoneNum)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'mchen@gmail.com'),
+		'6045553491'
+	);

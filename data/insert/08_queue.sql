@@ -357,3 +357,17 @@ INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
 		(SELECT MovieID FROM Movie WHERE MovieName = 'Lord of the Rings'),
 		3
 	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'GLewis@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Fast and Furious'),
+		4
+	);
+
+INSERT INTO QueueUp (CustomerID, MovieID, QueuePosition)
+	VALUES(
+		(SELECT CustomerID FROM Customer WHERE Email = 'GLewis@gmail.com'),
+		(SELECT MovieID FROM Movie WHERE MovieName = 'Forrest Gump'),
+		5
+	);
