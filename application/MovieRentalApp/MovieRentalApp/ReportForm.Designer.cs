@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportForm));
             ReportTabs = new TabControl();
             TopActors = new TabPage();
             textBox1 = new TextBox();
@@ -40,20 +39,19 @@
             textBox2 = new TextBox();
             RunSalesReport = new Button();
             SalesYear = new ComboBox();
-            SalesMonth = new ComboBox();
             TopEmployees = new TabPage();
             EmployeeYear = new ComboBox();
             EmployeeMonth = new ComboBox();
             RunTopEmployees = new Button();
             textBox3 = new TextBox();
             TopMovies = new TabPage();
-            button3 = new Button();
-            comboBox5 = new ComboBox();
-            comboBox4 = new ComboBox();
+            RunMovieReport = new Button();
+            MovieYear = new ComboBox();
+            MovieMonth = new ComboBox();
             textBox4 = new TextBox();
             MovieSuggest = new TabPage();
-            button4 = new Button();
-            comboBox6 = new ComboBox();
+            RUNMOVIESUGGEST = new Button();
+            CustomerBox = new ComboBox();
             textBox5 = new TextBox();
             ReportTabs.SuspendLayout();
             TopActors.SuspendLayout();
@@ -158,7 +156,6 @@
             SalesReport.Controls.Add(textBox2);
             SalesReport.Controls.Add(RunSalesReport);
             SalesReport.Controls.Add(SalesYear);
-            SalesReport.Controls.Add(SalesMonth);
             SalesReport.Location = new Point(4, 24);
             SalesReport.Name = "SalesReport";
             SalesReport.Padding = new Padding(3);
@@ -195,22 +192,11 @@
             SalesYear.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             SalesYear.FormattingEnabled = true;
             SalesYear.Items.AddRange(new object[] { "2025", "2026" });
-            SalesYear.Location = new Point(352, 332);
+            SalesYear.Location = new Point(227, 332);
             SalesYear.Name = "SalesYear";
             SalesYear.Size = new Size(121, 29);
             SalesYear.TabIndex = 1;
             SalesYear.Text = "Year";
-            // 
-            // SalesMonth
-            // 
-            SalesMonth.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SalesMonth.FormattingEnabled = true;
-            SalesMonth.Items.AddRange(new object[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" });
-            SalesMonth.Location = new Point(122, 332);
-            SalesMonth.Name = "SalesMonth";
-            SalesMonth.Size = new Size(121, 29);
-            SalesMonth.TabIndex = 0;
-            SalesMonth.Text = "Month";
             // 
             // TopEmployees
             // 
@@ -269,14 +255,14 @@
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(412, 129);
             textBox3.TabIndex = 0;
-            textBox3.Text = "This report is to find the top 5 employees in a given time period\r\n(employee who oversaw the most orders).\r\nSelect your options then press RUN REPORT\r\n";
+            textBox3.Text = "This report is to find the top 3 employees in a given time period\r\n(employee who oversaw the most orders).\r\nSelect your options then press RUN REPORT\r\n";
             textBox3.TextChanged += textBox3_TextChanged;
             // 
             // TopMovies
             // 
-            TopMovies.Controls.Add(button3);
-            TopMovies.Controls.Add(comboBox5);
-            TopMovies.Controls.Add(comboBox4);
+            TopMovies.Controls.Add(RunMovieReport);
+            TopMovies.Controls.Add(MovieYear);
+            TopMovies.Controls.Add(MovieMonth);
             TopMovies.Controls.Add(textBox4);
             TopMovies.Location = new Point(4, 24);
             TopMovies.Name = "TopMovies";
@@ -286,39 +272,40 @@
             TopMovies.Text = "Top Movies";
             TopMovies.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // RunMovieReport
             // 
-            button3.BackColor = Color.Navy;
-            button3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button3.ForeColor = SystemColors.ControlLight;
-            button3.Location = new Point(617, 332);
-            button3.Name = "button3";
-            button3.Size = new Size(145, 60);
-            button3.TabIndex = 10;
-            button3.Text = "RUN REPORT";
-            button3.UseVisualStyleBackColor = false;
+            RunMovieReport.BackColor = Color.Navy;
+            RunMovieReport.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            RunMovieReport.ForeColor = SystemColors.ControlLight;
+            RunMovieReport.Location = new Point(617, 332);
+            RunMovieReport.Name = "RunMovieReport";
+            RunMovieReport.Size = new Size(145, 60);
+            RunMovieReport.TabIndex = 10;
+            RunMovieReport.Text = "RUN REPORT";
+            RunMovieReport.UseVisualStyleBackColor = false;
+            RunMovieReport.Click += RunMovieReport_Click;
             // 
-            // comboBox5
+            // MovieYear
             // 
-            comboBox5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            comboBox5.FormattingEnabled = true;
-            comboBox5.Items.AddRange(new object[] { "2025", "2026" });
-            comboBox5.Location = new Point(380, 319);
-            comboBox5.Name = "comboBox5";
-            comboBox5.Size = new Size(121, 29);
-            comboBox5.TabIndex = 9;
-            comboBox5.Text = "Year";
+            MovieYear.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            MovieYear.FormattingEnabled = true;
+            MovieYear.Items.AddRange(new object[] { "2025", "2026" });
+            MovieYear.Location = new Point(380, 319);
+            MovieYear.Name = "MovieYear";
+            MovieYear.Size = new Size(121, 29);
+            MovieYear.TabIndex = 9;
+            MovieYear.Text = "Year";
             // 
-            // comboBox4
+            // MovieMonth
             // 
-            comboBox4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            comboBox4.FormattingEnabled = true;
-            comboBox4.Items.AddRange(new object[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" });
-            comboBox4.Location = new Point(175, 319);
-            comboBox4.Name = "comboBox4";
-            comboBox4.Size = new Size(121, 29);
-            comboBox4.TabIndex = 8;
-            comboBox4.Text = "Month";
+            MovieMonth.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            MovieMonth.FormattingEnabled = true;
+            MovieMonth.Items.AddRange(new object[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" });
+            MovieMonth.Location = new Point(175, 319);
+            MovieMonth.Name = "MovieMonth";
+            MovieMonth.Size = new Size(121, 29);
+            MovieMonth.TabIndex = 8;
+            MovieMonth.Text = "Month";
             // 
             // textBox4
             // 
@@ -332,8 +319,8 @@
             // 
             // MovieSuggest
             // 
-            MovieSuggest.Controls.Add(button4);
-            MovieSuggest.Controls.Add(comboBox6);
+            MovieSuggest.Controls.Add(RUNMOVIESUGGEST);
+            MovieSuggest.Controls.Add(CustomerBox);
             MovieSuggest.Controls.Add(textBox5);
             MovieSuggest.Location = new Point(4, 24);
             MovieSuggest.Name = "MovieSuggest";
@@ -343,27 +330,28 @@
             MovieSuggest.Text = "Movie Suggestions";
             MovieSuggest.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // RUNMOVIESUGGEST
             // 
-            button4.BackColor = Color.Navy;
-            button4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button4.ForeColor = SystemColors.ControlLight;
-            button4.Location = new Point(617, 332);
-            button4.Name = "button4";
-            button4.Size = new Size(145, 60);
-            button4.TabIndex = 11;
-            button4.Text = "RUN REPORT";
-            button4.UseVisualStyleBackColor = false;
+            RUNMOVIESUGGEST.BackColor = Color.Navy;
+            RUNMOVIESUGGEST.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            RUNMOVIESUGGEST.ForeColor = SystemColors.ControlLight;
+            RUNMOVIESUGGEST.Location = new Point(617, 332);
+            RUNMOVIESUGGEST.Name = "RUNMOVIESUGGEST";
+            RUNMOVIESUGGEST.Size = new Size(145, 60);
+            RUNMOVIESUGGEST.TabIndex = 11;
+            RUNMOVIESUGGEST.Text = "RUN REPORT";
+            RUNMOVIESUGGEST.UseVisualStyleBackColor = false;
+            RUNMOVIESUGGEST.Click += RUNMOVIESUGGEST_Click;
             // 
-            // comboBox6
+            // CustomerBox
             // 
-            comboBox6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            comboBox6.FormattingEnabled = true;
-            comboBox6.Location = new Point(72, 332);
-            comboBox6.Name = "comboBox6";
-            comboBox6.Size = new Size(121, 29);
-            comboBox6.TabIndex = 1;
-            comboBox6.Text = "Customer";
+            CustomerBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            CustomerBox.FormattingEnabled = true;
+            CustomerBox.Location = new Point(72, 332);
+            CustomerBox.Name = "CustomerBox";
+            CustomerBox.Size = new Size(121, 29);
+            CustomerBox.TabIndex = 1;
+            CustomerBox.Text = "Customer";
             // 
             // textBox5
             // 
@@ -373,7 +361,7 @@
             textBox5.Name = "textBox5";
             textBox5.Size = new Size(604, 117);
             textBox5.TabIndex = 0;
-            textBox5.Text = resources.GetString("textBox5.Text");
+            textBox5.Text = "This report generates a list of suggested movies for a customer based on their location and favourite genre.\r\nSelect options then press RUN REPORT";
             // 
             // ReportForm
             // 
@@ -383,6 +371,7 @@
             Controls.Add(ReportTabs);
             Name = "ReportForm";
             Text = "ReportForm";
+            Load += ReportForm_Load;
             ReportTabs.ResumeLayout(false);
             TopActors.ResumeLayout(false);
             TopActors.PerformLayout();
@@ -409,7 +398,6 @@
         private RadioButton Actors;
         private RadioButton Actress;
         private Button RunReport;
-        private ComboBox SalesMonth;
         private Button RunSalesReport;
         private ComboBox SalesYear;
         private TextBox textBox1;
@@ -419,11 +407,11 @@
         private ComboBox EmployeeYear;
         private ComboBox EmployeeMonth;
         private TextBox textBox4;
-        private Button button3;
-        private ComboBox comboBox5;
-        private ComboBox comboBox4;
-        private Button button4;
-        private ComboBox comboBox6;
+        private Button RunMovieReport;
+        private ComboBox MovieYear;
+        private ComboBox MovieMonth;
+        private Button RUNMOVIESUGGEST;
+        private ComboBox CustomerBox;
         private TextBox textBox5;
     }
 }
