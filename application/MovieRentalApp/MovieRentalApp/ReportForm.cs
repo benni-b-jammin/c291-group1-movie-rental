@@ -116,31 +116,25 @@ namespace MovieRentalApp
         {
             try
             {
-                // Get month and year
-                string selectedMonth = SalesMonth.SelectedItem.ToString();
+                // Get year
                 int selectedYear = Convert.ToInt32(SalesYear.SelectedItem);
-
-                // Convert month name to number
-                int monthNumber = DateTime.ParseExact(selectedMonth, "MMMM", null).Month;
 
                 // Query
                 string query = @"
                     SELECT
-                        DATENAME(MONTH, R.CheckoutDate) As Month,
+                        DATENAME(MONTH, R.CheckoutDate) As SalesMonth,
                         YEAR(R.CheckoutDate) AS Year,
                         SUM(M.DistFee) As TotalRevenue
                     FROM Rental R
                     JOIN Movie M ON R.MovieID = M.MovieID
                     WHERE
-                        MONTH(R.CheckoutDate) = @Month
-                        AND YEAR(R.CheckoutDate) = @Year
+                        YEAR(R.CheckoutDate) = @Year
                     GROUP BY
                         DATENAME(MONTH, R.CheckoutDate),
                         YEAR(R.CheckoutDate);";
 
                 using (SqlCommand cmd = new SqlCommand(query, myConnection))
                 {
-                    cmd.Parameters.AddWithValue("@Month", monthNumber);
                     cmd.Parameters.AddWithValue("@Year", selectedYear);
 
                     SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -200,7 +194,7 @@ namespace MovieRentalApp
                     ORDER BY
                         TotalOrders DESC;";
 
-                using(SqlCommand cmd = new SqlCommand(query,myConnection))
+                using (SqlCommand cmd = new SqlCommand(query, myConnection))
                 {
                     cmd.Parameters.AddWithValue("@Month", monthNumber);
                     cmd.Parameters.AddWithValue("@Year", selectedYear);
@@ -228,6 +222,180 @@ namespace MovieRentalApp
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void RunMovieReport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Selected values
+                string selectedMonth = MovieMonth.SelectedItem.ToString();
+                int selectedYear = Convert.ToInt32(MovieYear.SelectedItem);
+
+                // string month -> number
+                int monthNumber = DateTime.ParseExact(selectedMonth, "MMMM", null).Month;
+
+                // query
+                string query = @"
+                    SELECT TOP 3 WITH TIES
+                        M.MovieID,
+                        M.MovieName,
+                        COUNT(R.RentalID) AS TimesRented
+                    FROM Movie M
+                    JOIN Rental R ON M.MovieID = R.MovieID
+                    WHERE
+                        MONTH(R.CheckoutDate) = @Month
+                        AND YEAR(R.CheckoutDate) = @Year
+                    GROUP BY
+                        M.MovieID,
+                        M.MovieName
+                    ORDER BY
+                        TimesRented DESC;";
+
+                using (SqlCommand cmd = new SqlCommand(query, myConnection))
+                {
+                    cmd.Parameters.AddWithValue("@Month", monthNumber);
+                    cmd.Parameters.AddWithValue("@Year", selectedYear);
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable table = new DataTable();
+                    adapter.Fill(table);
+
+                    //Results
+                    Form resultsForm = new Form();
+                    DataGridView grid = new DataGridView
+                    {
+                        Dock = DockStyle.Fill,
+                        DataSource = table,
+                        AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+                    };
+
+                    resultsForm.Text = "Top 3 Movies";
+                    resultsForm.Controls.Add(grid);
+                    resultsForm.Size = new Size(600, 400);
+                    resultsForm.Show();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        // Get all the customers for the combo box
+        private void LoadCustomers()
+        {
+            string query = @"
+                SELECT CustomerID, FirstName + ' ' + LastName AS FullName
+                FROM Customer
+                ORDER BY FullName;";
+
+            using (SqlCommand cmd = new SqlCommand(query, myConnection))
+            {
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable table = new DataTable();
+                adapter.Fill(table);
+
+                CustomerBox.DataSource = table;
+                CustomerBox.DisplayMember = "FullName"; // Displays full name
+                CustomerBox.ValueMember = "CustomerId"; // Based on customer id
+            }
+        }
+
+        // Load in the customers when the form is loaded
+        private void ReportForm_Load(object sender, EventArgs e)
+        {
+            LoadCustomers();
+
+            // Setting defaults so the form doesn't crash
+            SalesMonth.SelectedItem = "January";
+            SalesYear.SelectedItem = "2025";
+
+            EmployeeMonth.SelectedItem = "January";
+            EmployeeYear.SelectedItem = "2025";
+
+            MovieMonth.SelectedItem = "January";
+            MovieYear.SelectedItem = "2025";
+        }
+
+        private void RUNMOVIESUGGEST_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int customerid = Convert.ToInt32(CustomerBox.SelectedValue);
+
+                string query = @"
+                    WITH CustomerInfo AS (
+                        SELECT CustomerID, City
+                        FROM Customer
+                        WHERE CustomerID = @CustomerID
+                    ),
+                    FavouriteGenre AS (
+                        SELECT TOP 1
+                            M.MovieType
+                        FROM Rental R
+                        JOIN Movie M ON R.MovieID = M.MovieID
+                        WHERE R.CustomerID = @CustomerID
+                        GROUP BY M.MovieType
+                        ORDER BY COUNT(*) DESC
+                    ),
+                    TopAreaMovies AS (
+                        SELECT TOP 2
+                            M.MovieID,
+                            M.MovieName,
+                            COUNT(*) AS RentalCount,
+                            'Popular in Area' AS Category
+                        FROM Rental R
+                        JOIN Customer C ON R.CustomerID = C.CustomerID
+                        JOIN Movie M ON R.MovieID = M.MovieID
+                        WHERE C.City = (SELECT City FROM CustomerINFO)
+                        GROUP BY M.MovieID, M.MovieName
+                        ORDER BY COUNT(*) DESC
+                    ),
+                    TopGenreMovies AS (
+                        SELECT TOP 3
+                            M.MovieID,
+                            M.MovieName,
+                            COUNT(*) AS RentalCount,
+                            'Favourite Genre' AS Category
+                        FROM Rental R
+                        JOIN Movie M on R.MovieID = M.MovieID
+                        WHERE M.MovieType IN (SELECT MovieType FROM FavouriteGenre)
+                        GROUP BY M.MovieID, M.MovieName
+                        ORDER BY COUNT(*) DESC
+                    )
+
+                    SELECT * FROM TopAreaMovies
+                    UNION ALL
+                    SELECT * FROM TopGenreMovies;";
+
+                using (SqlCommand cmd = new SqlCommand(query, myConnection))
+                {
+                    cmd.Parameters.AddWithValue("@CustomerID", customerid);
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable table = new DataTable();
+                    adapter.Fill(table);
+
+                    Form resultsForm = new Form();
+                    DataGridView grid = new DataGridView
+                    {
+                        Dock = DockStyle.Fill,
+                        DataSource = table,
+                        AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+                    };
+
+                    resultsForm.Text = "Recommended Movies";
+                    resultsForm.Controls.Add(grid);
+                    resultsForm.Size = new Size(600, 400);
+                    resultsForm.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
     }

@@ -117,10 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="textBox5.Text" xml:space="preserve">
-    <value>This report generates a list of suggested movies for a customer.
-The first 2 movies will be the most popular movies in their area
-The final 3 will be the most popular movies in their most rented genre
-Select options then press RUN REPORT</value>
-  </data>
 </root>

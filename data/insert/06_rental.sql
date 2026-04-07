@@ -437,4 +437,3 @@ VALUES
         (SELECT EmployeeID FROM Employee WHERE SSN = '246813579'),
         (SELECT CustomerID FROM Customer WHERE Email = 'GLewis@gmail.com'),
         (SELECT MovieID FROM Movie WHERE MovieName = 'Scooby Doo'));
-SELECT * FROM Rental
